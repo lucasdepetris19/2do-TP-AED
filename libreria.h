@@ -39,6 +39,6 @@ struct veterinario
 	char DetA[380];
 };
 
-void regisvet (){
-	printf("Registre el veterinario %s\n");
+void regiusuario(){
+	printf("Registre el usuario %s\n");
 }
