@@ -42,3 +42,11 @@ struct veterinario
 void regiusuario(){
 	printf("Registre el usuario %s\n");
 }
+
+void regisvet (){
+	printf("Registre el veterinario %s\n");
+}
+
+int menuPrincipal(){
+}
+
