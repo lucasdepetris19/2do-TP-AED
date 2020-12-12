@@ -26,7 +26,7 @@ struct mascota
 
 int regiusuario() //Alpha (No Usar)
 {
-	char Usuario;
+	char Usuario[10];
 	int ban=0;
 	do
 	{
@@ -34,12 +34,10 @@ int regiusuario() //Alpha (No Usar)
 		printf("Ingrese el nombre de Usuario: ");
 		_flushall();
 		gets(Usuario);
-		strcmp ();
+		strcmp(Usuario);
 
-		Comprobar();
-		
+		Comprobar();	
 	}
-	
 	while(Comprobar!=0);
 
 	if (Usuario>10 and Usuario<6)
@@ -47,7 +45,7 @@ int regiusuario() //Alpha (No Usar)
 		printf("Error. El nombre de Usuario debe contener entre 6 y 10 caracteres\n");	
 		ban++;
 	}
-	if ()
+	if (strcmp(Usuario)==)
 	{
 		printf("Error. El nombre de Usuario debe contar con 2 letras mayusculas\n");
 		ban++;
@@ -67,9 +65,9 @@ int regiusuario() //Alpha (No Usar)
 		printf("Error. El nombre esta repetido, Ingrese otro diferente");
 		ban++;
 	}
-	return
+	return ban;
 }
-}
+
 
 void regisvet(int i)
 {
