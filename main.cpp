@@ -49,7 +49,6 @@ int main()
     scanf("%d", &mat);
 
     listurn(mat);
-
     getch();
 }
 
@@ -93,7 +92,7 @@ void registurn()
             //     getch();
             //     b = 1;
             // }
-            
+
         } while (b == 1 || verifdni(turno) == 0);
 
         printf("\n\tFecha del Turno: \n");
