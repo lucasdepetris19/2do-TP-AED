@@ -39,7 +39,7 @@ void regisvet(int i)
 
 	FILE *fp = fopen("Veterinarios.dat", "a+b");
 		
-	printf("Registro de Veterinario Nº%d", i + 1);
+	printf("Registro de Veterinario NÂº%d", i + 1);
 	printf("\n------------------------------\n");
 
 	_flushall();
@@ -53,7 +53,7 @@ void regisvet(int i)
 
 	do
 	{
-		printf("Matricula (6 dígitos): ");
+		printf("Matricula (6 dÃ­gitos): ");
 		scanf("%06d", &vet.matri);
 	} while (vet.matri <= 0 || vet.matri > 999999);
 
@@ -66,7 +66,7 @@ void regisvet(int i)
 	_flushall();
 	do
 	{
-		printf("Télefono: ");
+		printf("TÃ©lefono: ");
 		gets(vet.telef);
 		i = 0;
 		b = 0;
@@ -88,11 +88,6 @@ void regisvet(int i)
 
 	fclose(fp);
 	system("CLS");
-}
-
-void regisvet()
-{
-	printf("Registre el veterinario %s\n");
 }
 
 // int menuPrincipal()
