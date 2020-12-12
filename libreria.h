@@ -32,6 +32,7 @@ int regiusuario() //Alpha (No Usar)
 	{
 		printf("\tRegistrar Usuario Asistente\n");
 		printf("Ingrese el nombre de Usuario: ");
+		_flushall();
 		gets(Usuario);
 		strcmp ();
 
