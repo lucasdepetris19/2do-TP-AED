@@ -90,11 +90,6 @@ void regisvet(int i)
 	system("CLS");
 }
 
-void regisvet()
-{
-	printf("Registre el veterinario %s\n");
-}
-
 // int menuPrincipal()
 // {
 // }
