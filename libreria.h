@@ -24,9 +24,50 @@ struct mascota
 	char telef[25];
 };
 
-void regiusuario()
+int regiusuario() //Alpha (No Usar)
 {
-	printf("Registre el usuario %s\n");
+	char Usuario;
+	int ban=0;
+	do
+	{
+		printf("\tRegistrar Usuario Asistente\n");
+		printf("Ingrese el nombre de Usuario: ");
+		gets(Usuario);
+		strcmp ();
+
+		Comprobar();
+		
+	}
+	
+	while(Comprobar!=0);
+
+	if (Usuario>10 and Usuario<6)
+	{
+		printf("Error. El nombre de Usuario debe contener entre 6 y 10 caracteres\n");	
+		ban++;
+	}
+	if ()
+	{
+		printf("Error. El nombre de Usuario debe contar con 2 letras mayusculas\n");
+		ban++;
+	}
+	if ()
+	{
+		printf("Error. El nombre de Usuario debe tener como maximo 3 digitos");
+		ban++;
+	}
+	if ()
+	{
+		printf("Error. El nombre debe comenzar con minusculas");
+		ban++;
+	}
+	if ()
+	{
+		printf("Error. El nombre esta repetido, Ingrese otro diferente");
+		ban++;
+	}
+	return
+}
 }
 
 void regisvet(int i)
