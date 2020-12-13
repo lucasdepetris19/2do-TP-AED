@@ -12,7 +12,6 @@ struct veterinario
 	int DNI_vet;
 	char telef[25];
 };
-
 struct mascota
 {
 	char ApeNom[60];
@@ -23,7 +22,17 @@ struct mascota
 	float peso;
 	char telef[25];
 };
+struct turnos
+{
+	int matri;
+	fecha fec;
+	int DNI_dueno;
+	char DetA[380];
+	mascota masc;
+	bool borrado;
+};
 
+/*
 int regiusuario() //Alpha (No Usar)
 {
 	char Usuario[10];
@@ -67,7 +76,7 @@ int regiusuario() //Alpha (No Usar)
 	}
 	return ban;
 }
-
+*/
 void regisvet()
 {
 	// char nom[20], ape[20], carrera[30];
