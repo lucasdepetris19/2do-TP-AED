@@ -32,7 +32,6 @@ struct turnos
 	bool borrado;
 };
 
-
 int regiusuario() //Alpha (No Usar)
 {
 	char Usuario[10];
@@ -91,7 +90,6 @@ int regiusuario() //Alpha (No Usar)
 	}
 	while(ban!=0);
 }
-
 
 void regisvet()
 {
@@ -162,7 +160,6 @@ void regisvet()
 		scanf("%c", &op);
 
 	} while (op == 'S' || op == 's');
-	// fwrite(fp, "%s;%06d;%08d;%s;\n",vet.ApeNom,vet.matri,vet.DNI_vet,vet.telef);
 
 	fwrite(&vet, sizeof(vet), 1, fp);
 
