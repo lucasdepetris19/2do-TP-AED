@@ -1,4 +1,4 @@
-void iniciarsesion()
+void login()
 {
 	char nombre[20];
 	char contrasena[20];
@@ -6,48 +6,58 @@ void iniciarsesion()
 	printf("Ingrese el nombre de usuario: ");
 	gets(nombre);
 
-	verificarusuario(nombre);
+	buscauser(nombre);
+	//Agregar condicion en caso que nombre no se encuentre
+	//Lo mismo para pass
 
 	printf("Ingrese la contraseña");
 	gets(contrasena);
 
-	verificarcontrasena(contrasena);
+	buscapass(contrasena);
 }
 
-void verificarusuario(char nombre)
+int buscauser(char nombre[20])
 {
 	FILE *f;
 	f = fopen("Usuarios.dat", "r");
+	int b;
 
-	fgets(nombre, 20, f);
+	fread(nombre, sizeof(usuario), f);
 
 	while (!feof(f))
 	{
-		fgets(nombre, 20, f);
-
 		if (strcmp(nombre, usuario.user) == 0)
 		{
-			printf("Usuario correcto\n");
+			b++;
 		}
-		else
-		{
-			printf("Usuario Incorrecto\n");
-		}
+
+		fread(nombre,  sizeof(usuario), f);
+	}
+
+	if (b > 0)
+	{
+		printf("Usuario correcto\n");
+		return b;
+	}
+	else
+	{
+		printf("Usuario Incorrecto\n");
+		return b;
 	}
 
 	fclose(f);
 }
 
-void verificarcontrasena(char contrasena)
+int buscapass(char contrasena)
 {
 	FILE *f;
 	f = fopen("Usuarios.dat", "r");
 
-	fgets(contrasena, 20, f);
+	fread(contrasena, 20, f);
 
 	while (!feof(f))
 	{
-		fgets(contrasena, 20, b);
+		fread(contrasena, 20, f);
 
 		if (strcmp(contrasena, usuario.contra) == 0)
 		{
