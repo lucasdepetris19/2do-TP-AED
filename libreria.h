@@ -33,63 +33,17 @@ struct turnos
 };
 
 
-int regiusuario() //Alpha (No Usar)
+void regiusuario()
 {
 	char Usuario[10];
-	int ban, long, LM, D;
 	
 	FILE *arch;
 	arch=fopen ("Usuarios.dat", "a+b");
-	do
-	{
-		ban=0;
-		printf("\tRegistrar Usuario Asistente\n");
-		printf("Ingrese el nombre de Usuario: ");
-		_flushall();
-		gets(Usuario);
-		
-		long=strlen(Usuario);
-		
-		if (long>10 && long<6)
-		{
-			printf("Error. El nombre de Usuario debe contener entre 6 y 10 caracteres\n");	
-			ban++;
-		}
-		
-		for (int i=0; i<long; i++)
-		{
-			if (Usuario[i] >= '0' && Usuario[i] <= '9')
-			{
-				D++;
-			}
-			if (Usuario[i] >= 'A' && Usuario[i] <= 'Z')
-			{
-				LM++;
-			}
-		}
-		
-		if (LM>=2)
-		{
-			printf("Error. El nombre de Usuario debe contar con 2 letras mayusculas\n");
-			ban++;
-		}
-		if (D>3)
-		{
-			printf("Error. El nombre de Usuario debe tener como maximo 3 digitos");
-			ban++;
-		}
-		if (Usuario[0] <= 'a' && Usuario[0] >= 'z')
-		{
-			printf("Error. El nombre debe comenzar con minusculas");
-			ban++;
-		}
-		if (strcmp(Usuario[0]) )//Falta
-		{
-			printf("Error. El nombre esta repetido, ingrese otro diferente");
-			ban++;
-		}	
-	}
-	while(ban!=0);
+
+	printf("\tRegistrar Usuario Asistente\n");
+	printf("Ingrese el nombre de Usuario: ");
+	_flushall();
+	gets(Usuario);
 }
 
 
