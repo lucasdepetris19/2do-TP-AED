@@ -32,12 +32,13 @@ int verifdni(turnos &turn);
 int verifmatric(int buscamat);
 void registurn();
 void regispet();
-void listurn(int matridein);
+void listurn(int matridein,char aux[60]);
 
 //Main Registurn
 int main()
 {
     int mat;
+    char palabra[60];
     setlocale(LC_ALL, "");
 
     // regisvet();
@@ -53,7 +54,7 @@ int main()
     printf("Ingrese una matricula");
     scanf("%d", &mat);
 
-    listurn(mat);
+    listurn(mat,palabra);
     getch();
 }
 
@@ -215,7 +216,7 @@ void regispet()
     }
 }
 
-void listurn(int matridein, char &aux[60])
+void listurn(int matridein, char aux[60])
 {
     FILE *p = fopen("Turnos.dat", "rb+");
     turnos datos;
@@ -278,7 +279,7 @@ void listurn(int matridein, char &aux[60])
                     fseek(p, -sizeof(turnos), SEEK_CUR);
                     fwrite(&datos, sizeof(turnos), 1, p);
                     printf("¡Atención confirmada!\n\n");
-                    aux=datos.masc.ApeNom;
+                    strcpy(aux,datos.masc.ApeNom);
                 }
                 band = true;
                 getch();
