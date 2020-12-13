@@ -15,7 +15,7 @@
 
 int main()
 {
-    setlocale(LC_ALL, "");
+    setlocale(LC_CTYPE,"Spanish");
 
     int opcion, N = 0;
     veterinario vet;
