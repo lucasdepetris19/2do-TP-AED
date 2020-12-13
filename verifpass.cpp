@@ -16,23 +16,12 @@ main()
 	}
 }
 
-bool verifpass()
+bool verifpass(char pass[33])
 {
-	setlocale(LC_ALL, "Spanish");
-	char pass[33], aux[33];
-	int i, cantidad = 0, min = 0, num = 0, may = 0, n = 27;
+	char aux[33];
+	int cantidad = 0, min = 0, num = 0, may = 0, n = 27;
 	bool verif = false;
 
-	printf("Creación de contraseña");
-	printf("La contraseña debe respetar los siguientes terminos:\n");
-	printf("1-Debe contener al menos una letra mayúscula, una letra minúscula y un número\n");
-	printf("2-No puede tener un caracter de puntuación\n");
-	printf("3-Debe contener entre 6 y 32 caractares\n");
-	printf("4-No debe contener 2 letras consecutivas\n");
-
-	_flushall();
-	printf("Contraseña: ");
-	gets(pass);
 	cantidad = strlen(pass);
 
 	strcpy(aux, pass);
@@ -40,7 +29,7 @@ bool verifpass()
 
 	if (cantidad > 5 && cantidad < 33)
 	{
-		for (i = 0; i < cantidad; i++)
+		for (int i = 0; i < cantidad; i++)
 		{
 			if (pass[i] == ' ' || pass[i] == ',' || pass[i] == '!' || pass[i] == '?' || pass[i] == '¿' || pass[i] == '.')
 			{
@@ -91,17 +80,11 @@ bool verifpass()
 	}
 	else
 	{
-		// printf("Num: %d  Mayus: %d  Minus: %d", num, may, min);
 		printf("\nContraseña Incorrecta");
 		printf("\nRazon: Ingrese al menos una mayuscula, una minuscula y un número");
 		printf("\nVuelva a intentarlo");
 		return verif;
 	}
-
-	// if (num > 0 && min > 0 && may > 0)
-	// {
-
-	// }
 
 	system("PAUSE");
 	// return verif;

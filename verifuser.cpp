@@ -1,3 +1,10 @@
+/*TODO:
+* Revisar entradas y salidas => coherencia con regiusuario
+* Revisar textos
+* Revisar verifpass.cpp y copiar de ahi
+* Push cuando compile correctamente
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -8,13 +15,12 @@
 main()
 //bool verifpass(char pass[33]))
 {
-    setlocale(LC_ALL, "Spanish");
     char usuario[10], aux1[10], aux2[10];
     int i, cantidad = 0, min = 0, num = 0, may = 0, n = 27, j, x = 0, mayus = 0, ;
     bool verificacion = true;
 
-    printf("Ingrese la contraseña");
-    printf("La contraseña debe respetar los siguientes terminos\n");
+    printf("Nombre de usuario");
+    printf("El nombre de usuario debe tener las siguientes condiciones\n");
     printf("1-Debe comenzar con una letra minuscula\n");
     printf("2-Debe tener al menos 2 letras mayusculas\n");
     printf("3-Debe contener entre 6 y 10 caractares\n");
@@ -85,7 +91,6 @@ else
 
 if (num == 0 || min == 0 || may == 0)
 {
-
     printf("\nNo ingreso un numero/Letra minuscula/letra Mayuscula\n");
     printf("Apartado 1\n");
     printf("Porfavor ingrese un usuario valida\n");
@@ -93,7 +98,6 @@ if (num == 0 || min == 0 || may == 0)
 
 if (num == 1 && min == 1 && may == 1)
 {
-
     printf("Usuario valida");
 }
 
