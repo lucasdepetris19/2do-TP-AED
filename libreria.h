@@ -32,7 +32,7 @@ struct turnos
 	bool borrado;
 };
 
-/*
+
 int regiusuario() //Alpha (No Usar)
 {
 	FILE *arch;
@@ -90,7 +90,8 @@ int regiusuario() //Alpha (No Usar)
 	}
 	while(ban!=0);
 }
-*/
+
+
 void regisvet()
 {
 	// char nom[20], ape[20], carrera[30];
