@@ -26,10 +26,11 @@ struct mascota
 
 int regiusuario() //Alpha (No Usar)
 {
-	FILE *arch;
-	arch=fopen ("Usuarios.dat", "a+b");
 	char Usuario[10];
 	int ban, long, LM, D;
+	
+	FILE *arch;
+	arch=fopen ("Usuarios.dat", "a+b");
 	do
 	{
 		ban=0;
