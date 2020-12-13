@@ -10,6 +10,7 @@
 // #include<cmath>
 
 #include "libreria.h"
+#include "menus.h"
 
 //Main Veterinario
 // int main()
@@ -44,6 +45,10 @@ int main()
     // regispet();
 
     // registurn();
+    
+    menuVet();
+
+    getch();
 
     printf("Ingrese una matricula");
     scanf("%d", &mat);
@@ -210,7 +215,7 @@ void regispet()
     }
 }
 
-void listurn(int matridein)
+void listurn(int matridein, char &aux[60])
 {
     FILE *p = fopen("Turnos.dat", "rb+");
     turnos datos;
@@ -264,7 +269,6 @@ void listurn(int matridein)
         {
             if (datos.borrado == false && matridein == datos.matri)
             {
-                // _flushall();
                 printf("\n¿Desea llamar a %s? (1-Si/0-No):", datos.masc.ApeNom);
                 scanf("%d", &op);
 
@@ -274,14 +278,13 @@ void listurn(int matridein)
                     fseek(p, -sizeof(turnos), SEEK_CUR);
                     fwrite(&datos, sizeof(turnos), 1, p);
                     printf("¡Atención confirmada!\n\n");
+                    aux=datos.masc.ApeNom;
                 }
-                // printf("\nAtendido: %d", datos.borrado);
                 band = true;
                 getch();
             }
             else
             {
-                // printf("\nFread"); 
                 fread(&datos, sizeof(turnos), 1, p);
             }
         }
