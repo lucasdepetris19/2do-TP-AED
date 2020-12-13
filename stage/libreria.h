@@ -136,12 +136,13 @@ int buscamatri(int buscamat)
 		if (vet.matri == buscamat)
 		{
 			fclose(fp);
-			return (vet.matri == buscamat);
+			printf("Matricula '%d' encontrada",vet.matri);
+			return 1;
 		}
 		fread(&vet, sizeof(vet), 1, fp);
 	};
 	printf("No se encontro un Veterinario con la Matricula '%d'. Vuelva a Intentarlo\n", buscamat);
-	// getch();
+	getch();
 	fclose(fp);
 	return 0;
 }
@@ -157,14 +158,14 @@ int verifdni(turnos &turn)
 	{
 		if (masc.DNI == turn.DNI_dueno)
 		{
-			fclose(fp);
 			turn.masc = masc;
-			return (masc.DNI == turn.DNI_dueno);
+			fclose(fp);
+			return 1;
 		}
 		fread(&masc, sizeof(masc), 1, fp);
 	};
 	printf("No se encontro una Mascota con el DNI de Dueño '%d'. Vuelva a Intentarlo\n", turn.DNI_dueno);
-	// getch();
+	getch();
 	fclose(fp);
 	return 0;
 }
@@ -288,16 +289,16 @@ void regiusuario()
 
 		// do
 		// {
-			_flushall();
-			printf("Nombre de usuario\n");
-			printf("El nombre de usuario debe tener las siguientes condiciones\n");
-			printf("1-Debe comenzar con una letra minuscula\n");
-			printf("2-Debe tener al menos 2 letras mayusculas\n");
-			printf("3-Debe contener entre 6 y 10 caractares\n");
-			printf("4-Debe contener como maximo 3 numeros\n");
-			printf("Ingrese un nombre de Usuario: ");
-			gets(us.user);
-			system("cls");
+		_flushall();
+		printf("Nombre de usuario\n");
+		printf("El nombre de usuario debe tener las siguientes condiciones\n");
+		printf("1-Debe comenzar con una letra minuscula\n");
+		printf("2-Debe tener al menos 2 letras mayusculas\n");
+		printf("3-Debe contener entre 6 y 10 caractares\n");
+		printf("4-Debe contener como maximo 3 numeros\n");
+		printf("Ingrese un nombre de Usuario: ");
+		gets(us.user);
+		system("cls");
 		// } while (verifuser(us.user) == 0);
 
 		do
@@ -383,7 +384,7 @@ void registurn()
 	int b = 0;
 	char op;
 
-	FILE *fp = fopen("turnos.dat", "a+b");
+	FILE *fp = fopen("turnos.dat", "r+b");
 	do
 	{
 		printf("\n\t-----------------------------\n");
@@ -409,14 +410,14 @@ void registurn()
 		do
 		{
 			printf("DNI del Dueño (8 dígitos): ");
-			scanf("%06d", &turno.DNI_dueno);
-
-			// if (turno.DNI_dueno < 10000000 || turno.DNI_dueno > 99999999)
-			// {
-			//     printf("Ingrese un DNI de 8 dígitos!");
-			//     getch();
-			//     b = 1;
-			// }
+			scanf("%08d", &turno.DNI_dueno);
+			// printf("Dni ingresado: %d",turno.DNI_dueno);
+			if (turno.DNI_dueno < 10000000 || turno.DNI_dueno > 99999999)
+			{
+			    printf("Ingrese un DNI de 8 dígitos!");
+			    getch();
+			    b = 1;
+			}
 
 		} while (b == 1 || verifdni(turno) == 0);
 
@@ -446,9 +447,9 @@ void registurn()
 // void loginvet()
 
 //Vet - Opc 2 - Listar Turnos y atender
-void listurn(int matridein, char *aux)
+void listurn(int matridein, char aux[60])
 {
-	FILE *p = fopen("Turnos.dat", "rb");
+	FILE *p = fopen("Turnos.dat", "r+b");
 	turnos datos;
 	int i, op;
 	bool band;
@@ -469,10 +470,10 @@ void listurn(int matridein, char *aux)
 				printf("MASCOTA %d\n", i + 1);
 				printf("Apellido y Nombre de la mascota: %s", datos.masc.ApeNom);
 				printf("\tDNI del dueño: %d", datos.masc.DNI);
-				printf("\tLocalidad de la mascota: %s", datos.masc.Loc);
-				printf("\nEdad de la mascota: %d\n", (2020 - datos.masc.fec.aa));
-				printf("Peso de la mascota: %f", datos.masc.peso);
-				printf("Estado: ");
+				printf("\nLocalidad de la mascota: %s", datos.masc.Loc);
+				printf("\nEdad de la mascota: %d años", (2020 - datos.masc.fec.aa));
+				printf("\tPeso de la mascota: %.2fkg", datos.masc.peso);
+				printf("\nEstado: ");
 				if (datos.borrado)
 				{
 					printf("Atendido");

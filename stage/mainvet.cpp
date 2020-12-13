@@ -1,3 +1,12 @@
+/*TODO:
+* Eliminar linea 43 ingreso matri luego de agregar loginvet
+* 
+* 
+* 
+*
+*
+*/
+
 #include <conio.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,10 +25,10 @@
 int main()
 {
     setlocale(LC_ALL, "");
-
+    system("color 5F");
     int opcion, N = 0;
     veterinario vet;
-    char apnom[20];
+    char apnom[60];
 
     do
     {
@@ -31,13 +40,15 @@ int main()
             getch();
             break;
         case 2:
-            listurn(vet.matri,apnom);
+            printf("Ingrese la matricula: "); //Eliminar luego
+            scanf("%d", &vet.matri);
+
+            listurn(vet.matri, apnom);
+            // printf("Apellido y Nombre de la mascota: %s",apnom);
             getch();
             break;
         case 3:
-            
-
-
+            evolucion(apnom);
             getch();
             break;
         case 4:
@@ -46,7 +57,6 @@ int main()
             printf("\n");
             system("pause");
             break;
-
         default:
             system("CLS");
             printf("Ha ingresado una opcion no valida");
@@ -58,5 +68,5 @@ int main()
     } while (opcion != 4); //Fin del Ciclo Do
 
     printf("\n");
-	getch();
+    getch();
 }

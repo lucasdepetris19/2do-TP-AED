@@ -38,22 +38,22 @@ void listurn(int matridein, char aux[60]);
 int main()
 {
     int mat;
-    char palabra[60];
+    char aux[60];
     setlocale(LC_ALL, "");
 
     // regisvet();
 
     // regispet();
 
-    // registurn();
+    registurn();
 
-    menuVet();
+    // menuVet();
 
-    getch();
+    // getch();
 
-    printf("Ingrese una matricula");
-    scanf("%d", &mat);
+    // printf("Ingrese una matricula");
+    // scanf("%d", &mat);
 
-    listurn(mat, palabra);
+    // listurn(mat, aux);
     getch();
 }
