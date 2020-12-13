@@ -35,46 +35,60 @@ struct turnos
 /*
 int regiusuario() //Alpha (No Usar)
 {
+	FILE *arch;
+	arch=fopen ("Usuarios.dat", "a+b");
 	char Usuario[10];
-	int ban=0;
+	int ban, long, LM, D;
 	do
 	{
+		ban=0;
 		printf("\tRegistrar Usuario Asistente\n");
 		printf("Ingrese el nombre de Usuario: ");
 		_flushall();
 		gets(Usuario);
-		strcmp(Usuario);
-
-		Comprobar();	
+		
+		long=strlen(Usuario);
+		
+		if (long>10 && long<6)
+		{
+			printf("Error. El nombre de Usuario debe contener entre 6 y 10 caracteres\n");	
+			ban++;
+		}
+		
+		for (int i=0; i<long; i++)
+		{
+			if (Usuario[i] >= '0' && Usuario[i] <= '9')
+			{
+				D++;
+			}
+			if (Usuario[i] >= 'A' && Usuario[i] <= 'Z')
+			{
+				LM++;
+			}
+		}
+		
+		if (LM>=2)
+		{
+			printf("Error. El nombre de Usuario debe contar con 2 letras mayusculas\n");
+			ban++;
+		}
+		if (D>3)
+		{
+			printf("Error. El nombre de Usuario debe tener como maximo 3 digitos");
+			ban++;
+		}
+		if (Usuario[0] <= 'a' && Usuario[0] >= 'z')
+		{
+			printf("Error. El nombre debe comenzar con minusculas");
+			ban++;
+		}
+		if (strcmp(Usuario[0]) )//Falta
+		{
+			printf("Error. El nombre esta repetido, ingrese otro diferente");
+			ban++;
+		}	
 	}
-	while(Comprobar!=0);
-
-	if (Usuario>10 and Usuario<6)
-	{
-		printf("Error. El nombre de Usuario debe contener entre 6 y 10 caracteres\n");	
-		ban++;
-	}
-	if (strcmp(Usuario)==)
-	{
-		printf("Error. El nombre de Usuario debe contar con 2 letras mayusculas\n");
-		ban++;
-	}
-	if ()
-	{
-		printf("Error. El nombre de Usuario debe tener como maximo 3 digitos");
-		ban++;
-	}
-	if ()
-	{
-		printf("Error. El nombre debe comenzar con minusculas");
-		ban++;
-	}
-	if ()
-	{
-		printf("Error. El nombre esta repetido, Ingrese otro diferente");
-		ban++;
-	}
-	return ban;
+	while(ban!=0);
 }
 */
 void regisvet()
@@ -107,14 +121,14 @@ void regisvet()
 		/*Dependiente de funcion verifpass*/
 		// do
 		// {
-		// 	printf("Contraseña: ");
+		// 	printf("ContraseÃ±a: ");
 		// 	gets(vet.contravet);
 		// } while (verifpass(vet.contravet));
 		// _flushall();
 
 		do
 		{
-			printf("Matricula (6 dígitos): ");
+			printf("Matricula (6 dÃ­gitos): ");
 			scanf("%06d", &vet.matri);
 		} while (vet.matri <= 0 || vet.matri > 999999);
 
@@ -127,7 +141,7 @@ void regisvet()
 		_flushall();
 		do
 		{
-			printf("\nTélefono: ");
+			printf("\nTÃ©lefono: ");
 			gets(vet.telef);
 			i = 0;
 			b = 0;
@@ -142,7 +156,7 @@ void regisvet()
 		_flushall();
 
 		_flushall();
-		printf("\n\n¿Registrar otro Veterinario? (S/N): ");
+		printf("\n\nÂ¿Registrar otro Veterinario? (S/N): ");
 		scanf("%c", &op);
 
 	} while (op == 'S' || op == 's');
