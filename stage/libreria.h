@@ -139,16 +139,16 @@ bool verifuser(char usuario[10])
 	if (usuario[0] < 'a' || usuario[0] > 'z')
 	{
 		printf("Error. El nombre debe comenzar con minusculas\n\n");
-		verificacion = false;
+		return false;
 	}
 
 	if (cantidad <= 6 || cantidad >= 10)
 	{
-		printf("Debe tener entre 6 y 10 caracteres\n\n");
-		verificacion = false;
+		printf("Error. Debe tener entre 6 y 10 caracteres\n\n");
+		return false;
 	}
 
-	printf("%s",usuario);
+	printf("%s", usuario);
 	for (i = 0; i < cantidad; i++)
 	{
 		if (usuario[i] > 64 && usuario[i] < 91) //letras mayusculas
@@ -169,35 +169,29 @@ bool verifuser(char usuario[10])
 
 	if (num > 3)
 	{
-		printf("NO DEBE TENER MAS DE 3 DIGITOS\n");
-		verificacion = false;
+		printf("Error. NO DEBE TENER MÁS DE 3 DIGITOS\n");
+		return false;
 	}
-	else
-	{
-		num = 1;
-	}
-	
+
 	if (mayus > 2)
 	{
-		printf("NO DEBE TENER MAS DE 2 MAYUSCULAS\n");
-		verificacion = false;
-	}
-	else
-	{
-		may = 1;
+		printf("Error. NO DEBE TENER MÁS DE 2 MAYUSCULAS\n");
+		return false;
 	}
 
 	// printf("n%d min%d may%d",num,min,may);
-	
+
 	if (num == 0 || min == 0 || may == 0)
 	{
-		printf("Por favor ingrese un usuario valido\n");
+		printf("Error. Por favor ingrese un usuario valido\n");
+		return false;
 	}
 
 	if (num == 1 && min == 1 && may == 1)
 	{
-		verificacion=true;
 		printf("Usuario valido");
+		getchar();
+		return true;
 	}
 
 	return verificacion;
@@ -384,7 +378,7 @@ void regiusuario()
 		do
 		{
 			_flushall();
-			printf("Contraseña\n");
+			printf("\nContraseña\n");
 			printf("La contraseña debe respetar los siguientes terminos:\n");
 			printf("1-Debe contener al menos una letra mayúscula, una letra minúscula y un número\n");
 			printf("2-No puede tener un caracter de puntuación\n");
