@@ -48,26 +48,23 @@ struct usuario
 	char ApeNom[60];
 };
 
-int buscauser(char nombre[20],usuario a)
+//Aux loginuser - Verificar existe usuario
+int verifuser(char nombre[10])
 {
 	FILE *f;
 	f = fopen("Usuarios.dat", "r+b");
-	int b=0;
-	char lectura=0;
-	
+	int b = 0;
+	usuario user;
 
+	fread(&user, sizeof(usuario), 1, f);
 
-	fread(&nombre, sizeof(char),1, f);
-
-	//while (!feof(f))
+	while (!feof(f))
 	{
-		
-		if (strcmp(nombre, a.user) == 0)
+		if (strcmp(nombre, user.user) == 0 && strcmp(contrasena, user.contra)==0)
 		{
 			b++;
 		}
-		
-		fread(&nombre, sizeof(char),1, f);
+		fread(&user, sizeof(usuario), 1, f);
 	}
 
 	if (b > 0)
@@ -80,29 +77,26 @@ int buscauser(char nombre[20],usuario a)
 		printf("Usuario Incorrecto\n");
 		return b;
 	}
-	
-	
 
 	fclose(f);
 }
 
-int buscapass(char contrasena[20], usuario a)
+//Aux loginuser - Verificar existe contraseña usuario
+int buscapassuser(char contrasena[33])
 {
 	FILE *f;
 	f = fopen("Usuarios.dat", "r+b");
-	
-	int x=0;
+	usuario user;
+	int x = 0;
 
-	fread(contrasena, sizeof(char),1, f);
+	fread(&user, sizeof(usuario), 1, f);
 
-//	while (!feof(f))
+	while (!feof(f))
 	{
-
-
-		if (strcmp(contrasena, a.pass) == 0)
+		if (strcmp(contrasena, user.contra) == 0)
 		{
 			printf("Contraseña Correcta\n");
-			x=1;
+			x = 1;
 			return x;
 		}
 		else
@@ -110,9 +104,37 @@ int buscapass(char contrasena[20], usuario a)
 			printf("Contraseña Incorrecta\n");
 			return x;
 		}
-			fread(contrasena, sizeof(char),1, f);
+		fread(&user, sizeof(usuario), 1, f);
 	}
 
+	fclose(f);
+}
+
+//Aux loginvet - Verificar existe contraseña veterinario
+int buscapassvet(char contrasena[33])
+{
+	FILE *f;
+	f = fopen("Veterinarios.dat", "r+b");
+	veterinario vet;
+	int x = 0;
+
+	fread(&vet, sizeof(veterinario), 1, f);
+
+	while (!feof(f))
+	{
+		if (strcmp(contrasena, vet.contravet) == 0)
+		{
+			printf("Contraseña Correcta\n");
+			x = 1;
+			return x;
+		}
+		else
+		{
+			printf("Contraseña Incorrecta\n");
+			return x;
+		}
+		fread(&vet, sizeof(veterinario), 1, f);
+	}
 	fclose(f);
 }
 
@@ -192,6 +214,9 @@ bool verifpass(char pass[33])
 }
 
 //Aux regisvet/regiusuario - Verificar cond usuario
+bool verifuser(){
+
+}
 
 //Aux loginvet/registurn
 int buscamatri(int buscamat)
@@ -458,6 +483,44 @@ void listatencionvet()
 
 		fclose(p);
 	}
+}
+
+//Asist - Opc 1 - Iniciar sesion Usuario
+void loginuser()
+{
+	char nombre[20];
+	char contrasena[20];
+
+	int x, z;
+
+	_flushall();
+	printf("Ingrese el nombre de usuario: ");
+	gets(nombre);
+
+	_flushall();
+	printf("Ingrese la contrasena: ");
+	gets(contrasena);
+
+	printf("%s\n", nombre);
+
+	printf("%s\n", contrasena);
+
+	z = buscauser(nombre);
+	x = buscapassuser(contrasena);
+
+	if (z > 0 && x == 1)
+	{
+		printf("Usuario Y Contraseña Correctos\n\n");
+	}
+	else
+	{
+
+		printf("Datos Invalidos\n\n");
+	}
+
+	fclose(f);
+
+	system("pause");
 }
 
 //Asist - Opc 2 - Registrar Mascota
@@ -762,62 +825,4 @@ void evolucion(char aux[60])
 		fread(&datos, sizeof(turnos), 1, p);
 	}
 	fclose(p);
-}
-void loginuser()
-{
-	
-	FILE *f;
-	f = fopen("Usuarios.dat", "w+b");
-	usuario a;
-	
-	char nombre[20];
-	char contrasena[20];
-	
-	int x,z;
-	
-	printf("Ingresa el user falso: ");
-	gets(a.user);
-	
-	
-	
-	_flushall();
-	printf("Ingrese el nombre de usuario: ");
-	gets(nombre);
-
-	_flushall();
-	printf("Ingresa la contra falsa: ");
-	gets(a.pass);
-
-
-	_flushall();
-	printf("Ingrese la contrasena: ");
-	gets(contrasena);
-
-	printf("%s\n",a.user);	
-	
-	printf("%s\n",nombre);	
-	
-	printf("%s\n",a.pass);	
-	
-	printf("%s\n",contrasena);	
-		
-		
-	z=buscauser(nombre,a);
-	x=buscapass(contrasena,a);
-	
-	
-	if(z>0 && x==1)
-	{
-		printf("Usuario Y Contraseña Correctos\n\n");
-	}
-	else
-	{
-	
-			printf("Datos Invalidos\n\n");
-	
-	}
-	
-	fclose(f);
-
-	system("pause");
 }
