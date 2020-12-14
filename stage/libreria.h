@@ -399,7 +399,7 @@ void listatencionvet()
 
 //********************USUARIO********************
 //Asist - Opc 1 - Iniciar sesion Usuario
-void loginuser(usuario &user)
+void loginuser(usuario &user, bool &login)
 {
 	FILE *f;
 	f = fopen("Usuarios.dat", "r+b");
@@ -409,11 +409,11 @@ void loginuser(usuario &user)
 	char contra[10];
 
 	_flushall();
-	printf("Ingrese el nombre de usuario: ");
+	printf("\n\n\t\tIngrese el nombre de usuario: ");
 	gets(username);
 
 	_flushall();
-	printf("Ingrese la contrasena: ");
+	printf("\n\t\tIngrese la contraseña: ");
 	gets(contra);
 
 	fread(&aux, sizeof(usuario), 1, f);
@@ -423,6 +423,7 @@ void loginuser(usuario &user)
 		if (strcmp(username, aux.user) == 0 && strcmp(contra, aux.contra) == 0)
 		{
 			user = aux;
+			login=true;
 			b = 1;
 		}
 		fread(&aux, sizeof(usuario), 1, f);

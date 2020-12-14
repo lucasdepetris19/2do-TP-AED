@@ -17,8 +17,7 @@ int main()
 {
     setlocale(LC_ALL, "");
     system("color 3F");
-    int opcion, N = 0;
-    char apnom[20];
+    int opcion;
 
     do
     {

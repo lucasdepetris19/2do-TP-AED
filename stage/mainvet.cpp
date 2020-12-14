@@ -27,19 +27,19 @@ int main()
 {
     setlocale(LC_ALL, "");
     system("color 5F");
-    int opcion, N = 0;
+    int opcion;
     veterinario vet;
     char apnom[60];
-    bool login=false;
+    bool login = false;
 
     do
     {
-        opcion = menuVet();
+        opcion = menuVet(login);
         switch (opcion)
         {
         case 1:
-            login=false;
-            loginvet(vet,login); //pendiente agregar loginvet
+            login = false;
+            loginvet(vet, login); //pendiente agregar loginvet
             getch();
             break;
         case 2:
