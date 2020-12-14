@@ -137,7 +137,7 @@ int buscamatri(int buscamat)
 		if (vet.matri == buscamat)
 		{
 			fclose(fp);
-			printf("Matricula '%d' encontrada",vet.matri);
+			printf("Matricula '%d' encontrada", vet.matri);
 			return 1;
 		}
 		fread(&vet, sizeof(vet), 1, fp);
@@ -415,9 +415,9 @@ void registurn()
 			// printf("Dni ingresado: %d",turno.DNI_dueno);
 			if (turno.DNI_dueno < 10000000 || turno.DNI_dueno > 99999999)
 			{
-			    printf("Ingrese un DNI de 8 dígitos!");
-			    getch();
-			    b = 1;
+				printf("Ingrese un DNI de 8 dígitos!");
+				getch();
+				b = 1;
 			}
 
 		} while (b == 1 || verifdni(turno) == 0);
@@ -505,6 +505,7 @@ void listurn(int matridein, char aux[60])
 					fwrite(&datos, sizeof(turnos), 1, p);
 					printf("¡Atención confirmada!\n\n");
 					strcpy(aux, datos.masc.ApeNom);
+					;
 				}
 				band = true;
 				getch();
@@ -520,51 +521,45 @@ void listurn(int matridein, char aux[60])
 }
 
 //Vet - Opc 3 - Evolucion del paciente
-
 void evolucion(char aux[60])
-{	
-  	FILE *p,*s;
+{
+	FILE *p, *s;
 	p = fopen("Turnos.dat", "rb+");
-	s=fopen("veterinarios.dat","rb");
+	s = fopen("veterinarios.dat", "rb");
 	turnos datos;
 	veterinario dat;
-		
-	bool x=false,band=false;
 
-	
-	fread(datos,sizeof(turnos),1,p);
-	
-	while(!feof(p) && band==false)
+	bool x = false, band = false;
+
+	fread(&datos, sizeof(turnos), 1, p);
+
+	while (!feof(p) && band == false)
 	{
+		if (datos.borrado == true && aux == datos.masc.ApeNom)
+		{
+			fread(&dat, sizeof(veterinario), 1, s);
+			while (!feof(s) && x == false)
+			{
+				if (datos.matri == dat.matri)
+				{
+					printf("\nApellido y nombre del veterinario %s", dat.ApeNom);
+					x = true;
+				}
 
-		if (datos.borrado == true && aux==datos.masc.ApeNom)
-	    {	
-	    	fread(dat,sizeof(veterinario),1,s);
-	    	while(!feof(s) && x==false)
-	    	{
-	    		if(datos.matri==dat.matri)
-	    		{
-	    			
-	    			printf("\nApellido y nombre del veterinario %s",dat.ApeNom);
-					x=true;
-					
-	    		}
-	    		
-	    		
-	    		fread(dat,sizeof(veterinario),1,s);
-	    	}
-	        printf("FECHA DEL TURNO: %d/%d/%d\n", datos.fec.dd,datos.fec.mm,datos.fec.aa); 	
-	        
-	        printf("La evolucion del paciente: ");
-	        gets(datos.DetA);
-	        fseek(p, -sizeof(turnos), SEEK_CUR);
-	        
-	        fwrite(datos,sizeof(turnos),1,p);
-	        
-	        band=true;
-	    }
-	
-		fread(datos,sizeof(turnos),1,p);
+				fread(&dat, sizeof(veterinario), 1, s);
+			}
+			printf("FECHA DEL TURNO: %d/%d/%d\n", datos.fec.dd, datos.fec.mm, datos.fec.aa);
+
+			printf("La evolucion del paciente: ");
+			gets(datos.DetA);
+			fseek(p, -sizeof(turnos), SEEK_CUR);
+
+			fwrite(&datos, sizeof(turnos), 1, p);
+
+			band = true;
+		}
+
+		fread(&datos, sizeof(turnos), 1, p);
 	}
-	fclose(p);	
+	fclose(p);
 }
