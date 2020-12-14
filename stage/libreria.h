@@ -20,6 +20,7 @@ struct veterinario
 	int matri;
 	int DNI_vet;
 	char telef[25];
+	int rank;
 };
 struct mascota
 {

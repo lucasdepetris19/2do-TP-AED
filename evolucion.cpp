@@ -7,7 +7,6 @@ void evolucion(aux)
 	
 	while(!feof(p))
 	{
-
 		if (datos.borrado == true && aux1==datos.matri)
 	    {
 	        printf("FECHA DEL TURNO: %d/%d/%d\n", datos.fec.dd,datos.fec.mm,datos.fec.aa); 	
