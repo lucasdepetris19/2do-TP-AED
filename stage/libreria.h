@@ -48,96 +48,6 @@ struct usuario
 	char ApeNom[60];
 };
 
-//Aux loginuser - Verificar existe usuario
-int verifuser(char nombre[10])
-{
-	FILE *f;
-	f = fopen("Usuarios.dat", "r+b");
-	int b = 0;
-	usuario user;
-
-	fread(&user, sizeof(usuario), 1, f);
-
-	while (!feof(f))
-	{
-		if (strcmp(nombre, user.user) == 0 && strcmp(contrasena, user.contra)==0)
-		{
-			b++;
-		}
-		fread(&user, sizeof(usuario), 1, f);
-	}
-
-	if (b > 0)
-	{
-		printf("Usuario correcto\n");
-		return b;
-	}
-	else
-	{
-		printf("Usuario Incorrecto\n");
-		return b;
-	}
-
-	fclose(f);
-}
-
-//Aux loginuser - Verificar existe contraseña usuario
-int buscapassuser(char contrasena[33])
-{
-	FILE *f;
-	f = fopen("Usuarios.dat", "r+b");
-	usuario user;
-	int x = 0;
-
-	fread(&user, sizeof(usuario), 1, f);
-
-	while (!feof(f))
-	{
-		if (strcmp(contrasena, user.contra) == 0)
-		{
-			printf("Contraseña Correcta\n");
-			x = 1;
-			return x;
-		}
-		else
-		{
-			printf("Contraseña Incorrecta\n");
-			return x;
-		}
-		fread(&user, sizeof(usuario), 1, f);
-	}
-
-	fclose(f);
-}
-
-//Aux loginvet - Verificar existe contraseña veterinario
-int buscapassvet(char contrasena[33])
-{
-	FILE *f;
-	f = fopen("Veterinarios.dat", "r+b");
-	veterinario vet;
-	int x = 0;
-
-	fread(&vet, sizeof(veterinario), 1, f);
-
-	while (!feof(f))
-	{
-		if (strcmp(contrasena, vet.contravet) == 0)
-		{
-			printf("Contraseña Correcta\n");
-			x = 1;
-			return x;
-		}
-		else
-		{
-			printf("Contraseña Incorrecta\n");
-			return x;
-		}
-		fread(&vet, sizeof(veterinario), 1, f);
-	}
-	fclose(f);
-}
-
 //Aux regisvet/regiusuario - Verificar cond contraseña
 bool verifpass(char pass[33])
 {
@@ -214,11 +124,11 @@ bool verifpass(char pass[33])
 }
 
 //Aux regisvet/regiusuario - Verificar cond usuario
-bool verifuser(){
-
+bool verifuser()
+{
 }
 
-//Aux loginvet/registurn
+//Aux registurn
 int buscamatri(int buscamat)
 {
 	FILE *fp = fopen("veterinarios.dat", "rb");
@@ -264,6 +174,7 @@ int verifdni(turnos &turn)
 	return 0;
 }
 
+//********************ADMIN********************
 //Admin - Opc 1 - Registrar Veterinario
 void regisvet()
 {
@@ -485,40 +396,51 @@ void listatencionvet()
 	}
 }
 
+//********************USUARIO********************
 //Asist - Opc 1 - Iniciar sesion Usuario
-void loginuser()
+void loginuser(usuario &user)
 {
-	char nombre[20];
-	char contrasena[20];
-
-	int x, z;
+	FILE *f;
+	f = fopen("Usuarios.dat", "r+b");
+	usuario aux;
+	int b = 0;
+	char username[10];
+	char contra[10];
 
 	_flushall();
 	printf("Ingrese el nombre de usuario: ");
-	gets(nombre);
+	gets(username);
 
 	_flushall();
 	printf("Ingrese la contrasena: ");
-	gets(contrasena);
+	gets(contra);
 
-	printf("%s\n", nombre);
+	printf("%s\n", username);
 
-	printf("%s\n", contrasena);
+	printf("%s\n", contra);
 
-	z = buscauser(nombre);
-	x = buscapassuser(contrasena);
+	fread(&aux, sizeof(usuario), 1, f);
 
-	if (z > 0 && x == 1)
+	while (!feof(f) || b == 1)
 	{
-		printf("Usuario Y Contraseña Correctos\n\n");
-	}
-	else
-	{
-
-		printf("Datos Invalidos\n\n");
+		if (strcmp(username, aux.user) == 0 && strcmp(contra, aux.contra) == 0)
+		{
+			user = aux;
+			b = 1;
+		}
+		fread(&aux, sizeof(usuario), 1, f);
 	}
 
 	fclose(f);
+
+	if (b == 1)
+	{
+		printf("Usuario y Contraseña Correctos\n\n");
+	}
+	else
+	{
+		printf("Datos Incorrectos\n\n");
+	}
 
 	system("pause");
 }
@@ -640,7 +562,7 @@ void registurn()
 	system("CLS");
 }
 
-//Asist - Opc 3 - Listar Atencion x vet y fecha
+//Asist - Opc 4 - Listar Atencion x vet y fecha
 void listatencionvetfec()
 {
 	FILE *p = fopen("Turnos.dat", "rb");
@@ -708,6 +630,7 @@ void listatencionvetfec()
 	}
 }
 
+//********************VETERINARIO********************
 //Vet - Opc 1 - Iniciar Sesion Vet
 // void loginvet()
 
