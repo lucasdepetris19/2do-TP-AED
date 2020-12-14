@@ -39,7 +39,7 @@ int main()
             getch();
             break;
         case 4:
-            rankvet(); // Ranking de Veterinarios- Opcion 4 ADMIN
+            // rankvet(); // Ranking de Veterinarios- Opcion 4 ADMIN
             getch();
             break;
         case 5:

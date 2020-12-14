@@ -28,7 +28,7 @@ int main()
         switch (opcion)
         {
         case 1:
-            // loginuser(user);
+            loginuser(user);
             getch();
             break;
         case 2:

@@ -415,13 +415,9 @@ void loginuser(usuario &user)
 	printf("Ingrese la contrasena: ");
 	gets(contra);
 
-	printf("%s\n", username);
-
-	printf("%s\n", contra);
-
 	fread(&aux, sizeof(usuario), 1, f);
 
-	while (!feof(f) || b == 1)
+	while (!feof(f) && b == 0)
 	{
 		if (strcmp(username, aux.user) == 0 && strcmp(contra, aux.contra) == 0)
 		{
