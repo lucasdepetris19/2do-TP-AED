@@ -132,7 +132,7 @@ bool verifuser(char usuario[10]))
 	setlocale(LC_ALL, "Spanish");
 	char usuario[10],aux1[10],aux2[10];
 	int i,cantidad,min=0,num=0,may=0,n=27,x=0,mayus=0;
-	bool verificacion=true;
+	bool verificacion=false;
 	
 	
 	printf("Ingrese la contraseña");
@@ -155,12 +155,12 @@ bool verifuser(char usuario[10]))
       	if (usuario[0] < 'a' || usuario[0] > 'z')
 			{
 				printf("Error. El nombre debe comenzar con minusculas\n\n");
-				verificacion=false;
+				return verificacion;
 			}
 		if(cantidad <= 6 || cantidad >=10)
 		{
 			printf("Debe tener entre 6 y 10 caracteres\n\n");	
-			verificacion=false;
+			return verificacion;
 		}
 			
 
@@ -189,7 +189,7 @@ bool verifuser(char usuario[10]))
 					if(x>2)
 						{
 							printf("NO DEBE TENER MAS DE 3 DIGITOS\n");
-							verificacion=false;
+							return verificacion;
 						}
 						else
 						{
@@ -198,7 +198,7 @@ bool verifuser(char usuario[10]))
 						if(mayus>2)
 						{
 							printf("NO DEBE TENER MAS DE 2 MAYUSCULAS\n");
-							verificacion=false;
+							return verificacion;
 						}
 						else
 						{
@@ -216,7 +216,8 @@ bool verifuser(char usuario[10]))
 		{
 			printf("Porfavor ingrese un usuario valido\n");
 		}
-		// return verificación; 
+		
+		return verificacion; 
 }
 
 //Aux registurn
