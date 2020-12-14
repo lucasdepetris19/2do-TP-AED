@@ -1,8 +1,9 @@
-/*TODO:
+/*
+TODO:
 * Agregar funciones listados santiago
 * Agregar verifuser
-* Agregar loginuser
-* Agregar loginvet(veterinario &vet);
+*
+*
 *
 *
 */
@@ -628,7 +629,65 @@ void listatencionvetfec()
 
 //********************VETERINARIO********************
 //Vet - Opc 1 - Iniciar Sesion Vet
-// void loginvet()
+void loginvet(veterinario &vet,bool &login)
+{
+	FILE *p;
+	p = fopen("Veterinarios.dat", "r");
+
+	veterinario datos;
+	int busqueda;
+	bool bus = false, contra = false;
+	char aux2[33];
+
+	printf("Ingrese el número de matricula: ");
+	scanf("%d", &busqueda);
+
+	_flushall();
+	printf("Ingrese la contraseña: ");
+	gets(aux2);
+
+	fread(&datos, sizeof(veterinario), 1, p);
+
+	while (!feof(p) && contra == false)
+	{
+		if (busqueda == datos.matri)
+		{
+			bus = true;
+			if (strcmp(aux2,datos.contravet)==0)
+			{
+				vet=datos;
+				contra = true;
+			}
+		}
+		fread(&datos, sizeof(turnos), 1, p);
+	}
+
+	if (bus)
+	{
+		printf("\nMatricula encontrada\n");
+		if (contra)
+		{
+			printf("Contraseña encontrada");
+		}
+		else
+		{
+			printf("Contraseñaa incorrecta.\n Por favor vuelva a ingresar la contrasenia");
+		}
+		system("Pause");
+	}
+	else
+	{
+		printf("No se encontro un Veterinario con la Matricula '%d'. Vuelva a Intentarlo\n", busqueda);
+	}
+
+	if(bus && contra)
+	{
+		login=true;
+		printf("\n Logueo exitoso \n");
+	}
+	system("pause");
+	fclose(p);
+}
 
 //Vet - Opc 2 - Listar Turnos y atender
 void listurn(int matridein, char aux[60])

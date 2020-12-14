@@ -38,13 +38,11 @@ int main()
         switch (opcion)
         {
         case 1:
-            // loginvet(vet); //pendiente agregar loginvet
+            login=false;
+            loginvet(vet,login); //pendiente agregar loginvet
             getch();
             break;
         case 2:
-            printf("Ingrese la matricula: "); //Eliminar luego
-            scanf("%d", &vet.matri);
-
             listurn(vet.matri, apnom);
             // printf("Apellido y Nombre de la mascota: %s",apnom);
             getch();

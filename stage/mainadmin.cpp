@@ -18,7 +18,6 @@ int main()
     setlocale(LC_ALL, "");
     system("color 3F");
     int opcion, N = 0;
-    veterinario vet;
     char apnom[20];
 
     do

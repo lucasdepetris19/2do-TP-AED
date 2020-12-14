@@ -1,78 +1,61 @@
 
 // FUNCION PARA VERIFICAR LA MATRICULA DEL VETERINARIO Y LA CONTRASENIA
-		
-void buscar()
+
+void loginvet()
 {
 	FILE *p;
-	p=fopen("Veterinario.dat","r");
-	
-	veterinario datos;
-	
+	p = fopen("Veterinario.dat", "r");
 
-	bool bus=false,contra=false;
+	veterinario datos;
+
+	bool bus = false, contra = false;
 	char aux[33];
-	
-	
-	
+
 	printf("Ingrese el numero de matricula: ");
-	scanf("%d",&busqueda);
-	
+	scanf("%d", &busqueda);
+
 	_flushall();
 	printf("Ingrese la contraseña: ");
 	gets(aux2);
-	
-	
-	fread(&datos,sizeof(veterinario),1,p);
-	
-	while(!feof(p) && contra==false)
+
+	fread(&datos, sizeof(veterinario), 1, p);
+
+	while (!feof(p) && contra == false)
 	{
-		
-		if(busqueda == datos.matri)
+		if (busqueda == datos.matri)
 		{
-			bus=true;
-			
-			if(aux2 == datos.contravet)
+			bus = true;
+			if (aux2 == datos.contravet)
 			{
-				contra=true;
+				contra = true;
 			}
-			
 		}
-		fread(&datos,sizeof(turnos),1,p);
+		fread(&datos, sizeof(turnos), 1, p);
 	}
-	
-	if(bus)
+
+	if (bus)
 	{
-		
 		printf("\nMatricula encontrada\n");
-		
-		if(contra)
+		if (contra)
 		{
 			printf("Contrasenia encontrada");
 		}
-		
 		else
 		{
-
 			printf("Contrasenia incorrecta.\n Porfavor vuelva a ingresar la contrasenia");
-			
 		}
-	
 		system("Pause")
 	}
-	
 	else
 	{
 		printf("No se encontro un Veterinario con la Matricula '%d'. Vuelva a Intentarlo\n", busqueda);
 	}
-	
-	
+
 	if(bus && contra)
 	{
 		printf("\n Logueo exitoso \n");
 	}
-	
+
 	system("pause");
-	
 	fclose(p);
-	
 }
