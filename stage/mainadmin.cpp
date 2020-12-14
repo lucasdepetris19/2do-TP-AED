@@ -35,13 +35,11 @@ int main()
             getch();
             break;
         case 3:
-            //Atencion por Veterinario- Opcion 3 ADMIN
-            listatencionvet();
+            listatencionvet(); //Atencion por Veterinario- Opcion 3 ADMIN
             getch();
             break;
         case 4:
-            // Ranking de Veterinarios- Opcion 4 ADMIN
-
+            rankvet(); // Ranking de Veterinarios- Opcion 4 ADMIN
             getch();
             break;
         case 5:
