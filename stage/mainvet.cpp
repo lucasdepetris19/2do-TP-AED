@@ -53,9 +53,9 @@ int main()
             break;
         case 4:
             system("CLS");
-            printf("\nF i n   d e l   P r o g r a m a");
-            printf("\n");
-            system("pause");
+            printf("\n\n\n\n\n\n\t\t\tF i n   d e l   P r o g r a m a");
+            printf("\n\n\n\n\n\n\n");
+            // getch();
             break;
         default:
             system("CLS");
@@ -67,6 +67,6 @@ int main()
 
     } while (opcion != 4); //Fin del Ciclo Do
 
-    printf("\n");
+    // printf("\n");
     getch();
 }

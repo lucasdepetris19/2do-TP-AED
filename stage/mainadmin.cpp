@@ -15,8 +15,8 @@
 
 int main()
 {
-    setlocale(LC_CTYPE,"Spanish");
-
+    setlocale(LC_ALL, "");
+    system("color 3F");
     int opcion, N = 0;
     veterinario vet;
     char apnom[20];
@@ -36,21 +36,20 @@ int main()
             break;
         case 3:
             //Atencion por Veterinario- Opcion 3 ADMIN
-
-
+            listatencionvet();
             getch();
             break;
         case 4:
             // Ranking de Veterinarios- Opcion 4 ADMIN
-            
+
             getch();
             break;
         case 5:
             system("CLS");
-            printf("\nS a l i r   d e l   S i s t e m a");
-            printf("\n");
-            system("pause");
-            break;      
+            printf("\n\n\n\n\n\n\t\t\tF i n   d e l   P r o g r a m a");
+            printf("\n\n\n\n\n\n\n");
+            // getch();
+            break;
         default:
             system("CLS");
             printf("Ha ingresado una opcion no valida");
@@ -61,6 +60,5 @@ int main()
 
     } while (opcion != 5); //Fin del Ciclo Do
 
-    printf("\n");
-	getch();
+    getch();
 }

@@ -26,10 +26,8 @@ main()
 		printf("%s",aux2);
 		busqueda(aux2);
 	}
-<<<<<<< HEAD
 
 }
-
 
 bool buscar(int busqueda)
 {
@@ -75,14 +73,12 @@ void busqueda(char aux2[33])
 	veterinario vet;
 	
 	int comp=0;
-=======
 }
 
 void busqueda(char contrasena)
 {
 	FILE *f;
 	f = fopen("Usuarios.dat", "rb");
->>>>>>> 51ecc805462e2903464adbbb32147c91bf0a59bf
 	bool bus=false;
 	
 	
@@ -104,12 +100,7 @@ void busqueda(char contrasena)
 	
 		if(bus)
 	{
-<<<<<<< HEAD
-		printf("Contrasenia correcta");
-		
-=======
 		printf("Contrasenia encontrada");
->>>>>>> 51ecc805462e2903464adbbb32147c91bf0a59bf
 	}
 	else
 	{

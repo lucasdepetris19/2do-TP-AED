@@ -1,12 +1,3 @@
-/*TODO:
-* Eliminar linea 43 ingreso matri luego de agregar loginvet
-* 
-* 
-* 
-*
-*
-*/
-
 #include <conio.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,6 +8,7 @@
 // #include<string.h>
 // #include<time.h>
 // #include<cmath>
+#include <unistd.h>
 
 //Librerias Locales
 #include "libreria.h"
@@ -25,39 +17,38 @@
 int main()
 {
     setlocale(LC_ALL, "");
-
+    system("color 1F");
     int opcion, N = 0;
-    veterinario vet;
+    usuario user;
     char apnom[60];
 
     do
     {
-        opcion = menuVet();
+        opcion = menuAsist();
         switch (opcion)
         {
         case 1:
-            // loginvet(vet); //pendiente agregar loginvet
+            // loginuser(user);
             getch();
             break;
         case 2:
-            printf("Ingrese la matricula: "); //Eliminar luego
-            scanf("%d",&vet.matri);
-
-            listurn(vet.matri,apnom);
-            printf("Apellido y Nombre de la mascota: %s",apnom);
+            regispet();
             getch();
             break;
         case 3:
-            // evolucion(apnom);
+            registurn();
             getch();
             break;
         case 4:
-            system("CLS");
-            printf("\nF i n   d e l   P r o g r a m a");
-            printf("\n");
-            system("pause");
+            listatencionvetfec();
+            getch();
             break;
-
+        case 5:
+            system("CLS");
+            printf("\n\n\n\n\n\n\t\t\tF i n   d e l   P r o g r a m a");
+            printf("\n\n\n\n\n\n\n");
+            // getch();
+            break;
         default:
             system("CLS");
             printf("Ha ingresado una opcion no valida");
@@ -66,8 +57,8 @@ int main()
             break;
         } //Fin del switch().
 
-    } while (opcion != 4); //Fin del Ciclo Do
+    } while (opcion != 5); //Fin del Ciclo Do
 
-    printf("\n");
+    // printf("\n");
 	getch();
 }

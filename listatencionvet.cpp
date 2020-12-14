@@ -9,7 +9,7 @@ struct turnos
 };
 
 
-void listatencion()
+void listatencionvet()
 {
     FILE *p = fopen("Turnos.dat", "rb");
     turnos datos;
