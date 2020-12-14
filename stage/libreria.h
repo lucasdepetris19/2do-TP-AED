@@ -124,83 +124,99 @@ bool verifpass(char pass[33])
 	// return verif;
 }
 
-//Aux regiusuario - Verificar cond usuario
-bool verifuser(char usuario[10])
-{
-	char aux1[10];
-	int i, cantidad = 0, min = 0, num = 0, may = 0, n = 27, mayus = 0;
-	bool verificacion = true;
+//Aux regisvet/regiusuario - Verificar cond usuario
+bool verifuser(char usuario[10]))
+{	
 
-	cantidad = strlen(usuario);
 
-	strcpy(aux1, usuario);
-	strlwr(aux1); //convertimos en minuscula
-
-	if (usuario[0] < 'a' || usuario[0] > 'z')
-	{
-		printf("Error. El nombre debe comenzar con minusculas\n\n");
-		verificacion = false;
-	}
-
-	if (cantidad <= 6 || cantidad >= 10)
-	{
-		printf("Debe tener entre 6 y 10 caracteres\n\n");
-		verificacion = false;
-	}
-
-	printf("%s",usuario);
-	for (i = 0; i < cantidad; i++)
-	{
-		if (usuario[i] > 64 && usuario[i] < 91) //letras mayusculas
-		{
-			mayus++;
-		}
-
-		if (usuario[i] >= 97 && usuario[i] < 122) //letras minusculas
-		{
-			min++;
-		}
-
-		if (usuario[i] > 47 && usuario[i] < 58) //Numeros
-		{
-			num++;
-		}
-	}
-
-	if (num > 3)
-	{
-		printf("NO DEBE TENER MAS DE 3 DIGITOS\n");
-		verificacion = false;
-	}
-	else
-	{
-		num = 1;
-	}
+	setlocale(LC_ALL, "Spanish");
+	char usuario[10],aux1[10],aux2[10];
+	int i,cantidad,min=0,num=0,may=0,n=27,x=0,mayus=0;
+	bool verificacion=true;
 	
-	if (mayus > 2)
-	{
-		printf("NO DEBE TENER MAS DE 2 MAYUSCULAS\n");
-		verificacion = false;
-	}
-	else
-	{
-		may = 1;
-	}
-
-	// printf("n%d min%d may%d",num,min,may);
 	
-	if (num == 0 || min == 0 || may == 0)
-	{
-		printf("Por favor ingrese un usuario valido\n");
-	}
+	printf("Ingrese la contraseña");
+	printf("La contraseña debe respetar los siguientes terminos\n");
+	printf("1-Debe comenzar con una letra minuscula\n");
+	printf("2-Debe tener al menos 2 letras mayusculas\n");
+	printf("3-Debe contener entre 6 y 10 caractares\n");
+	printf("4-Debe contener como maximo 3 numeros\n");
+	
+	
+		_flushall();
+		printf("Usuario: ");
+		gets(usuario);
+		cantidad=strlen(usuario);
+		
+		strcpy(aux1,usuario);			
+		strlwr(aux1);               //convertimos en minuscula
+      
+      
+      	if (usuario[0] < 'a' || usuario[0] > 'z')
+			{
+				printf("Error. El nombre debe comenzar con minusculas\n\n");
+				verificacion=false;
+			}
+		if(cantidad <= 6 || cantidad >=10)
+		{
+			printf("Debe tener entre 6 y 10 caracteres\n\n");	
+			verificacion=false;
+		}
+			
 
-	if (num == 1 && min == 1 && may == 1)
-	{
-		verificacion=true;
-		printf("Usuario valido");
-	}
+				for(i=0;i<cantidad && verificacion ;i++)
+				{
+					if(usuario[i] > 64 && usuario[i] < 91 ) //letras mayusculas
+					{
+						mayus++;
+						
+					}
+					if(usuario[i] >= 97 && usuario[i] < 122 ) //letras minusculas
+					{
+						
+						min=1;
+						
+					}
+					if(usuario[i] > 47 && usuario[i] < 58 ) //Numeros
+					{
+						x++;	
+					}
+						
+					
+				}							
+						
+				printf("numeros=%d min=%d mayus=%d",x,min,mayus);
+					if(x>2)
+						{
+							printf("NO DEBE TENER MAS DE 3 DIGITOS\n");
+							verificacion=false;
+						}
+						else
+						{
+							num=1;
+						}
+						if(mayus>2)
+						{
+							printf("NO DEBE TENER MAS DE 2 MAYUSCULAS\n");
+							verificacion=false;
+						}
+						else
+						{
+							may=1;
+						}
+			
 
-	return verificacion;
+		if(verificacion)
+		{
+			
+			printf("Usuario valido");
+			
+		}	
+		else
+		{
+			printf("Porfavor ingrese un usuario valido\n");
+		}
+		// return verificación; 
 }
 
 //Aux registurn
@@ -367,19 +383,19 @@ void regiusuario()
 		gets(us.ApeNom);
 		system("cls");
 
-		do
-		{
-			_flushall();
-			printf("Nombre de usuario\n");
-			printf("El nombre de usuario debe tener las siguientes condiciones\n");
-			printf("1-Debe comenzar con una letra minuscula\n");
-			printf("2-Debe tener al menos 2 letras mayusculas\n");
-			printf("3-Debe contener entre 6 y 10 caractares\n");
-			printf("4-Debe contener como maximo 3 numeros\n");
-			printf("Ingrese un nombre de Usuario: ");
-			gets(us.user);
-			system("cls");
-		} while (verifuser(us.user) == 0);
+		// do
+		// {
+		_flushall();
+		printf("Nombre de usuario\n");
+		printf("El nombre de usuario debe tener las siguientes condiciones\n");
+		printf("1-Debe comenzar con una letra minuscula\n");
+		printf("2-Debe tener al menos 2 letras mayusculas\n");
+		printf("3-Debe contener entre 6 y 10 caractares\n");
+		printf("4-Debe contener como maximo 3 numeros\n");
+		printf("Ingrese un nombre de Usuario: ");
+		gets(us.user);
+		system("cls");
+		// } while (verifuser(us.user) == 0);
 
 		do
 		{
@@ -497,7 +513,7 @@ void loginuser(usuario &user, bool &login)
 		if (strcmp(username, aux.user) == 0 && strcmp(contra, aux.contra) == 0)
 		{
 			user = aux;
-			login = true;
+			login=true;
 			b = 1;
 		}
 		fread(&aux, sizeof(usuario), 1, f);
@@ -706,7 +722,7 @@ void listatencionvetfec()
 
 //********************VETERINARIO********************
 //Vet - Opc 1 - Iniciar Sesion Vet
-void loginvet(veterinario &vet, bool &login)
+void loginvet(veterinario &vet,bool &login)
 {
 	FILE *p;
 	p = fopen("Veterinarios.dat", "r");
@@ -730,9 +746,9 @@ void loginvet(veterinario &vet, bool &login)
 		if (busqueda == datos.matri)
 		{
 			bus = true;
-			if (strcmp(aux2, datos.contravet) == 0)
+			if (strcmp(aux2,datos.contravet)==0)
 			{
-				vet = datos;
+				vet=datos;
 				contra = true;
 			}
 		}
@@ -757,9 +773,9 @@ void loginvet(veterinario &vet, bool &login)
 		printf("No se encontro un Veterinario con la Matricula '%d'. Vuelva a Intentarlo\n", busqueda);
 	}
 
-	if (bus && contra)
+	if(bus && contra)
 	{
-		login = true;
+		login=true;
 		printf("\n Logueo exitoso \n");
 	}
 	system("pause");
