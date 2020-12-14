@@ -14,6 +14,7 @@
 #include <cstring>
 #include <ctype.h>
 #include <wchar.h>
+#include <stdbool.h>
 // #include<string.h>
 // #include<time.h>
 // #include<cmath>
@@ -29,6 +30,7 @@ int main()
     int opcion, N = 0;
     veterinario vet;
     char apnom[60];
+    bool login=false;
 
     do
     {
