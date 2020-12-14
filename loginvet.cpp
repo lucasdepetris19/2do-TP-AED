@@ -1,117 +1,78 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "libreria.h"
-
-bool buscar(int busqueda);
-void busqueda(char contrasena[33]);
 
 // FUNCION PARA VERIFICAR LA MATRICULA DEL VETERINARIO Y LA CONTRASENIA
-
-main()
-{
-	int aux;
-	char aux2[33];
-	bool s;
-	
-	printf("Ingrese el numero de matricula: ");
-	scanf("%d",&aux);
-	
-	s=buscamatri(aux);
-	
-	if(s)
-	{	
-		_flushall();
-		printf("Ingrese la contrasenia: ");
-		printf("%s",aux2);
-		busqueda(aux2);
-	}
-
-}
-
-bool buscar(int busqueda)
+		
+void buscar()
 {
 	FILE *p;
-	p=fopen("Turnos.dat","r");
-	turnos datos;
-	bool bus=false;
+	p=fopen("Veterinario.dat","r");
 	
-	fread(&datos,sizeof(turnos),1,p);
+	veterinario datos;
 	
-	while(!feof(p) && bus==false)
+
+	bool bus=false,contra=false;
+	char aux[33];
+	
+	
+	
+	printf("Ingrese el numero de matricula: ");
+	scanf("%d",&busqueda);
+	
+	_flushall();
+	printf("Ingrese la contraseña: ");
+	gets(aux2);
+	
+	
+	fread(&datos,sizeof(veterinario),1,p);
+	
+	while(!feof(p) && contra==false)
 	{
 		
 		if(busqueda == datos.matri)
 		{
 			bus=true;
 			
+			if(aux2 == datos.contravet)
+			{
+				contra=true;
+			}
+			
 		}
 		fread(&datos,sizeof(turnos),1,p);
 	}
-	if(!bus)
+	
+	if(bus)
 	{
-		printf("Matricula encontrada");
 		
+		printf("\nMatricula encontrada\n");
+		
+		if(contra)
+		{
+			printf("Contrasenia encontrada");
+		}
+		
+		else
+		{
+
+			printf("Contrasenia incorrecta.\n Porfavor vuelva a ingresar la contrasenia");
+			
+		}
+	
+		system("Pause")
 	}
+	
 	else
 	{
 		printf("No se encontro un Veterinario con la Matricula '%d'. Vuelva a Intentarlo\n", busqueda);
+	}
+	
+	
+	if(bus && contra)
+	{
+		printf("\n Logueo exitoso \n");
 	}
 	
 	system("pause");
 	
 	fclose(p);
 	
-	return bus;
 }
-
-
-void busqueda(char aux2[33])
-{
-	FILE *f;
-	f = fopen("Veterinarios.dat", "r");
-	veterinario vet;
-	
-	int comp=0;
-}
-
-void busqueda(char contrasena)
-{
-	FILE *f;
-	f = fopen("Usuarios.dat", "rb");
-	bool bus=false;
-	
-	
-	fread(&vet,sizeof(veterinario),1,f);
-	
-	while(!feof(f) && bus == false)
-	{
-		comp=strcmp(aux2,dat.contrasena);
-		
-		if(comp == 0)
-		{
-		
-			bus=true;
-			
-		}
-		
-		fread(&vet,sizeof(veterinario),1,f);
-	}
-	
-		if(bus)
-	{
-		printf("Contrasenia encontrada");
-	}
-	else
-	{
-		printf("Contrasenia incorrecta.\n Porfavor vuelva a ingresar la contrasenia");
-		
-	}
-	
-	system("Pause")
-	
-	fclose(f);
-	
-}
-
-
