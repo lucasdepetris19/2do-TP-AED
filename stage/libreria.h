@@ -48,6 +48,74 @@ struct usuario
 	char ApeNom[60];
 };
 
+int buscauser(char nombre[20],usuario a)
+{
+	FILE *f;
+	f = fopen("Usuarios.dat", "r+b");
+	int b=0;
+	char lectura=0;
+	
+
+
+	fread(&nombre, sizeof(char),1, f);
+
+	//while (!feof(f))
+	{
+		
+		if (strcmp(nombre, a.user) == 0)
+		{
+			b++;
+		}
+		
+		fread(&nombre, sizeof(char),1, f);
+	}
+
+	if (b > 0)
+	{
+		printf("Usuario correcto\n");
+		return b;
+	}
+	else
+	{
+		printf("Usuario Incorrecto\n");
+		return b;
+	}
+	
+	
+
+	fclose(f);
+}
+
+int buscapass(char contrasena[20], usuario a)
+{
+	FILE *f;
+	f = fopen("Usuarios.dat", "r+b");
+	
+	int x=0;
+
+	fread(contrasena, sizeof(char),1, f);
+
+//	while (!feof(f))
+	{
+
+
+		if (strcmp(contrasena, a.pass) == 0)
+		{
+			printf("Contraseña Correcta\n");
+			x=1;
+			return x;
+		}
+		else
+		{
+			printf("Contraseña Incorrecta\n");
+			return x;
+		}
+			fread(contrasena, sizeof(char),1, f);
+	}
+
+	fclose(f);
+}
+
 //Aux regisvet/regiusuario - Verificar cond contraseña
 bool verifpass(char pass[33])
 {
@@ -694,4 +762,62 @@ void evolucion(char aux[60])
 		fread(&datos, sizeof(turnos), 1, p);
 	}
 	fclose(p);
+}
+void loginuser()
+{
+	
+	FILE *f;
+	f = fopen("Usuarios.dat", "w+b");
+	usuario a;
+	
+	char nombre[20];
+	char contrasena[20];
+	
+	int x,z;
+	
+	printf("Ingresa el user falso: ");
+	gets(a.user);
+	
+	
+	
+	_flushall();
+	printf("Ingrese el nombre de usuario: ");
+	gets(nombre);
+
+	_flushall();
+	printf("Ingresa la contra falsa: ");
+	gets(a.pass);
+
+
+	_flushall();
+	printf("Ingrese la contrasena: ");
+	gets(contrasena);
+
+	printf("%s\n",a.user);	
+	
+	printf("%s\n",nombre);	
+	
+	printf("%s\n",a.pass);	
+	
+	printf("%s\n",contrasena);	
+		
+		
+	z=buscauser(nombre,a);
+	x=buscapass(contrasena,a);
+	
+	
+	if(z>0 && x==1)
+	{
+		printf("Usuario Y Contraseña Correctos\n\n");
+	}
+	else
+	{
+	
+			printf("Datos Invalidos\n\n");
+	
+	}
+	
+	fclose(f);
+
+	system("pause");
 }
