@@ -124,7 +124,7 @@ bool verifpass(char pass[33])
 	// return verif;
 }
 
-//Aux regiusuario - Verificar cond usuario
+//Aux regisvet/regiusuario - Verificar cond usuario
 bool verifuser(char usuario[10])
 {
 	char aux1[10];
@@ -139,16 +139,18 @@ bool verifuser(char usuario[10])
 	if (usuario[0] < 'a' || usuario[0] > 'z')
 	{
 		printf("Error. El nombre debe comenzar con minusculas\n\n");
+		getch();
 		return false;
 	}
 
 	if (cantidad <= 6 || cantidad >= 10)
 	{
-		printf("Error. Debe tener entre 6 y 10 caracteres\n\n");
+		printf("Debe tener entre 6 y 10 caracteres\n\n");
+		getch();
 		return false;
 	}
 
-	printf("%s", usuario);
+	// printf("%s", usuario);
 	for (i = 0; i < cantidad; i++)
 	{
 		if (usuario[i] > 64 && usuario[i] < 91) //letras mayusculas
@@ -169,13 +171,15 @@ bool verifuser(char usuario[10])
 
 	if (num > 3)
 	{
-		printf("Error. NO DEBE TENER MÁS DE 3 DIGITOS\n");
+		printf("NO DEBE TENER MAS DE 3 DIGITOS\n");
+		getch();
 		return false;
 	}
 
 	if (mayus > 2)
 	{
-		printf("Error. NO DEBE TENER MÁS DE 2 MAYUSCULAS\n");
+		printf("NO DEBE TENER MAS DE 2 MAYUSCULAS\n");
+		getch();
 		return false;
 	}
 
@@ -183,14 +187,13 @@ bool verifuser(char usuario[10])
 
 	if (num == 0 || min == 0 || may == 0)
 	{
-		printf("Error. Por favor ingrese un usuario valido\n");
-		return false;
+		printf("Por favor ingrese un usuario valido\n");
 	}
 
 	if (num == 1 && min == 1 && may == 1)
 	{
 		printf("Usuario valido");
-		getchar();
+		getch();
 		return true;
 	}
 
@@ -361,19 +364,19 @@ void regiusuario()
 		gets(us.ApeNom);
 		system("cls");
 
-		do
-		{
-			_flushall();
-			printf("Nombre de usuario\n");
-			printf("El nombre de usuario debe tener las siguientes condiciones\n");
-			printf("1-Debe comenzar con una letra minuscula\n");
-			printf("2-Debe tener al menos 2 letras mayusculas\n");
-			printf("3-Debe contener entre 6 y 10 caractares\n");
-			printf("4-Debe contener como maximo 3 numeros\n");
-			printf("Ingrese un nombre de Usuario: ");
-			gets(us.user);
-			system("cls");
-		} while (verifuser(us.user) == 0);
+		// do
+		// {
+		_flushall();
+		printf("Nombre de usuario\n");
+		printf("El nombre de usuario debe tener las siguientes condiciones\n");
+		printf("1-Debe comenzar con una letra minuscula\n");
+		printf("2-Debe tener al menos 2 letras mayusculas\n");
+		printf("3-Debe contener entre 6 y 10 caractares\n");
+		printf("4-Debe contener como maximo 3 numeros\n");
+		printf("Ingrese un nombre de Usuario: ");
+		gets(us.user);
+		system("cls");
+		// } while (verifuser(us.user) == 0);
 
 		do
 		{
