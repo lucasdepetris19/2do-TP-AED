@@ -27,24 +27,22 @@ int main()
 {
     setlocale(LC_ALL, "");
     system("color 5F");
-    int opcion, N = 0;
+    int opcion;
     veterinario vet;
     char apnom[60];
-    bool login=false;
+    bool login = false;
 
     do
     {
-        opcion = menuVet();
+        opcion = menuVet(login);
         switch (opcion)
         {
         case 1:
-            // loginvet(vet); //pendiente agregar loginvet
+            login = false;
+            loginvet(vet, login); //pendiente agregar loginvet
             getch();
             break;
         case 2:
-            printf("Ingrese la matricula: "); //Eliminar luego
-            scanf("%d", &vet.matri);
-
             listurn(vet.matri, apnom);
             // printf("Apellido y Nombre de la mascota: %s",apnom);
             getch();

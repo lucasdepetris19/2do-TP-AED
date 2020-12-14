@@ -1,8 +1,9 @@
-/*TODO:
+/*
+TODO:
 * Agregar funciones listados santiago
 * Agregar verifuser
-* Agregar loginuser
-* Agregar loginvet(veterinario &vet);
+*
+*
 *
 *
 */
@@ -124,8 +125,99 @@ bool verifpass(char pass[33])
 }
 
 //Aux regisvet/regiusuario - Verificar cond usuario
-bool verifuser()
-{
+bool verifuser(char usuario[10]))
+{	
+
+
+	setlocale(LC_ALL, "Spanish");
+	char usuario[10],aux1[10],aux2[10];
+	int i,cantidad,min=0,num=0,may=0,n=27,x=0,mayus=0;
+	bool verificacion=false;
+	
+	
+	printf("Ingrese la contraseña");
+	printf("La contraseña debe respetar los siguientes terminos\n");
+	printf("1-Debe comenzar con una letra minuscula\n");
+	printf("2-Debe tener al menos 2 letras mayusculas\n");
+	printf("3-Debe contener entre 6 y 10 caractares\n");
+	printf("4-Debe contener como maximo 3 numeros\n");
+	
+	
+		_flushall();
+		printf("Usuario: ");
+		gets(usuario);
+		cantidad=strlen(usuario);
+		
+		strcpy(aux1,usuario);			
+		strlwr(aux1);               //convertimos en minuscula
+      
+      
+      	if (usuario[0] < 'a' || usuario[0] > 'z')
+			{
+				printf("Error. El nombre debe comenzar con minusculas\n\n");
+				return verificacion;
+			}
+		if(cantidad <= 6 || cantidad >=10)
+		{
+			printf("Debe tener entre 6 y 10 caracteres\n\n");	
+			return verificacion;
+		}
+			
+
+				for(i=0;i<cantidad && verificacion ;i++)
+				{
+					if(usuario[i] > 64 && usuario[i] < 91 ) //letras mayusculas
+					{
+						mayus++;
+						
+					}
+					if(usuario[i] >= 97 && usuario[i] < 122 ) //letras minusculas
+					{
+						
+						min=1;
+						
+					}
+					if(usuario[i] > 47 && usuario[i] < 58 ) //Numeros
+					{
+						x++;	
+					}
+						
+					
+				}							
+						
+				printf("numeros=%d min=%d mayus=%d",x,min,mayus);
+					if(x>2)
+						{
+							printf("NO DEBE TENER MAS DE 3 DIGITOS\n");
+							return verificacion;
+						}
+						else
+						{
+							num=1;
+						}
+						if(mayus>2)
+						{
+							printf("NO DEBE TENER MAS DE 2 MAYUSCULAS\n");
+							return verificacion;
+						}
+						else
+						{
+							may=1;
+						}
+			
+
+		if(verificacion)
+		{
+			
+			printf("Usuario valido");
+			
+		}	
+		else
+		{
+			printf("Porfavor ingrese un usuario valido\n");
+		}
+		
+		return verificacion; 
 }
 
 //Aux registurn
@@ -398,7 +490,7 @@ void listatencionvet()
 
 //********************USUARIO********************
 //Asist - Opc 1 - Iniciar sesion Usuario
-void loginuser(usuario &user)
+void loginuser(usuario &user, bool &login)
 {
 	FILE *f;
 	f = fopen("Usuarios.dat", "r+b");
@@ -408,11 +500,11 @@ void loginuser(usuario &user)
 	char contra[10];
 
 	_flushall();
-	printf("Ingrese el nombre de usuario: ");
+	printf("\n\n\t\tIngrese el nombre de usuario: ");
 	gets(username);
 
 	_flushall();
-	printf("Ingrese la contrasena: ");
+	printf("\n\t\tIngrese la contraseña: ");
 	gets(contra);
 
 	fread(&aux, sizeof(usuario), 1, f);
@@ -422,6 +514,7 @@ void loginuser(usuario &user)
 		if (strcmp(username, aux.user) == 0 && strcmp(contra, aux.contra) == 0)
 		{
 			user = aux;
+			login=true;
 			b = 1;
 		}
 		fread(&aux, sizeof(usuario), 1, f);
@@ -630,7 +723,65 @@ void listatencionvetfec()
 
 //********************VETERINARIO********************
 //Vet - Opc 1 - Iniciar Sesion Vet
-// void loginvet()
+void loginvet(veterinario &vet,bool &login)
+{
+	FILE *p;
+	p = fopen("Veterinarios.dat", "r");
+
+	veterinario datos;
+	int busqueda;
+	bool bus = false, contra = false;
+	char aux2[33];
+
+	printf("Ingrese el número de matricula: ");
+	scanf("%d", &busqueda);
+
+	_flushall();
+	printf("Ingrese la contraseña: ");
+	gets(aux2);
+
+	fread(&datos, sizeof(veterinario), 1, p);
+
+	while (!feof(p) && contra == false)
+	{
+		if (busqueda == datos.matri)
+		{
+			bus = true;
+			if (strcmp(aux2,datos.contravet)==0)
+			{
+				vet=datos;
+				contra = true;
+			}
+		}
+		fread(&datos, sizeof(turnos), 1, p);
+	}
+
+	if (bus)
+	{
+		printf("\nMatricula encontrada\n");
+		if (contra)
+		{
+			printf("Contraseña encontrada");
+		}
+		else
+		{
+			printf("Contraseñaa incorrecta.\n Por favor vuelva a ingresar la contrasenia");
+		}
+		system("Pause");
+	}
+	else
+	{
+		printf("No se encontro un Veterinario con la Matricula '%d'. Vuelva a Intentarlo\n", busqueda);
+	}
+
+	if(bus && contra)
+	{
+		login=true;
+		printf("\n Logueo exitoso \n");
+	}
+	system("pause");
+	fclose(p);
+}
 
 //Vet - Opc 2 - Listar Turnos y atender
 void listurn(int matridein, char aux[60])

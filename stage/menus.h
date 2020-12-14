@@ -2,7 +2,7 @@
 
 int time=50000;
 
-int menuVet()
+int menuVet(bool login)
 {
     int opc = 0;
     system("CLS");
@@ -46,11 +46,17 @@ int menuVet()
     usleep(time);
     printf("\tSeleccione una Opción: ");
     scanf("%d", &opc);
- 
+    
+    if(login==false && opc>1 && opc<4){
+        printf("\n\n\t\tSe requiere iniciar sesión para acceder a esta opción");
+        printf("\n\t\tSera redirigido al area de inicio de sesión");
+        opc=1;
+    }
+    
     return opc; //retorna el número de opción seleccionada.
 }
 
-int menuAsist()
+int menuAsist(bool login)
 {
     int opc = 0;
     system("CLS");
@@ -104,6 +110,12 @@ int menuAsist()
     printf("\t\tSeleccione una Opción: ");
     scanf("%d", &opc);
  
+    if(login==false && opc>1 && opc<5){
+        printf("\n\n\t\tSe requiere iniciar sesión para acceder a esta opción");
+        printf("\n\t\tSera redirigido al area de inicio de sesión");
+        opc=1;
+    }
+
     return opc; //retorna el número de opción seleccionada.
 }
 
@@ -160,6 +172,6 @@ int menuAdmin()
     usleep(time);
     printf("\t\tSeleccione una Opción: ");
     scanf("%d", &opc);
- 
+
     return opc; //retorna el número de opción seleccionada.
 }

@@ -18,17 +18,18 @@ int main()
 {
     setlocale(LC_ALL, "");
     system("color 1F");
-    int opcion, N = 0;
+    int opcion;
     usuario user;
-    char apnom[60];
+    bool login=false;
 
     do
     {
-        opcion = menuAsist();
+        opcion = menuAsist(login);
         switch (opcion)
         {
         case 1:
-            loginuser(user);
+            login=false;
+            loginuser(user,login);
             getch();
             break;
         case 2:
