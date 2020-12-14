@@ -41,64 +41,77 @@ bool buscar(int busqueda)
 	turnos datos;
 	bool bus=false;
 	
-	fread(datos,sizeof(turnos),1,p);
+	fread(&datos,sizeof(turnos),1,p);
 	
-	while(!feof(p))
+	while(!feof(p) && bus==false)
 	{
-		if(busqueda==datos.matri)
+		
+		if(busqueda == datos.matri)
 		{
 			bus=true;
-				
-		}	
-		
+			
+		}
+		fread(&datos,sizeof(turnos),1,p);
 	}
-	
-	
-	if(bus)
+	if(!bus)
 	{
 		printf("Matricula encontrada");
 		
 	}
 	else
 	{
-		printf("No se encontro la matricula del veterinario");
-		
+		printf("No se encontro un Veterinario con la Matricula '%d'. Vuelva a Intentarlo\n", busqueda);
 	}
+	
+	system("pause");
+	
+	fclose(p);
 	
 	return bus;
 }
 
 
-void busqueda(char contrasena)
+void busqueda(char aux2[33])
 {
 	FILE *f;
-	f = fopen("Usuarios.dat", "r");
+	f = fopen("Veterinarios.dat", "r");
+	veterinario vet;
+	
+	int comp=0;
 	bool bus=false;
-	fread(contrasena, 20, f);
-
-	while (!feof(f))
+	
+	
+	fread(&vet,sizeof(veterinario),1,f);
+	
+	while(!feof(f) && bus == false)
 	{
-		fread(contrasena, 20, f);
-
-		if (strcmp(contrasena, usuario.contra) == 0)
+		comp=strcmp(aux2,dat.contrasena);
+		
+		if(comp == 0)
 		{
+		
 			bus=true;
+			
 		}
+		
+		fread(&vet,sizeof(veterinario),1,f);
 	}
 	
 		if(bus)
 	{
-		printf("Contrasenia encontrada");
+		printf("Contrasenia correcta");
 		
 	}
 	else
 	{
-		printf("Contrasenia incorrecta");
+		printf("Contrasenia incorrecta.\n Porfavor vuelva a ingresar la contrasenia");
 		
 	}
 	
+	system("Pause")
 	
 	fclose(f);
+	
 }
 
 
