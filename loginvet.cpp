@@ -1,19 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "libreria.h"
 
 bool buscar(int busqueda);
 void busqueda(char contrasena[33]);
 
 // FUNCION PARA VERIFICAR LA MATRICULA DEL VETERINARIO Y LA CONTRASENIA
 
-
-
-
-
 main()
 {
-	
 	int aux;
 	char aux2[33];
 	bool s;
@@ -21,7 +17,7 @@ main()
 	printf("Ingrese el numero de matricula: ");
 	scanf("%d",&aux);
 	
-	s=buscar(aux);
+	s=buscamatri(aux);
 	
 	if(s)
 	{	
@@ -30,6 +26,7 @@ main()
 		printf("%s",aux2);
 		busqueda(aux2);
 	}
+<<<<<<< HEAD
 
 }
 
@@ -78,6 +75,14 @@ void busqueda(char aux2[33])
 	veterinario vet;
 	
 	int comp=0;
+=======
+}
+
+void busqueda(char contrasena)
+{
+	FILE *f;
+	f = fopen("Usuarios.dat", "rb");
+>>>>>>> 51ecc805462e2903464adbbb32147c91bf0a59bf
 	bool bus=false;
 	
 	
@@ -99,8 +104,12 @@ void busqueda(char aux2[33])
 	
 		if(bus)
 	{
+<<<<<<< HEAD
 		printf("Contrasenia correcta");
 		
+=======
+		printf("Contrasenia encontrada");
+>>>>>>> 51ecc805462e2903464adbbb32147c91bf0a59bf
 	}
 	else
 	{
