@@ -460,12 +460,13 @@ void regispet()
 			printf("\n Ingresar datos de la mascota a registrar por favor:");
 
 			_flushall();
-			printf("Ingrese Apellido y Nombre de la mascota: ");
+			printf("\n\nIngrese Apellido y Nombre de la mascota: ");
 			gets(datos.ApeNom);
 			printf("Ingrese domicilio de la mascota: ");
 			gets(datos.Dom);
 			printf("Ingrese DNI del dueño: ");
 			scanf("%d", &datos.DNI);
+			_flushall();
 			printf("Ingrese localidad de la mascota: ");
 			gets(datos.Loc);
 			printf("\nIngrese Fecha de nacimiento \n");
@@ -477,6 +478,7 @@ void regispet()
 			scanf("%d", &datos.fec.aa);
 			printf("Ingresar peso de la mascota: ");
 			scanf("%f", &datos.peso);
+			_flushall();
 			printf("Ingrese telefono del dueño de la mascota: ");
 			gets(datos.telef);
 
