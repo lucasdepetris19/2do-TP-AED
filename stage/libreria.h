@@ -474,15 +474,6 @@ void listurn(int matridein, char aux[60])
 				printf("\nLocalidad de la mascota: %s", datos.masc.Loc);
 				printf("\nEdad de la mascota: %d años", (2020 - datos.masc.fec.aa));
 				printf("\tPeso de la mascota: %.2fkg", datos.masc.peso);
-				printf("\nEstado: ");
-				if (datos.borrado)
-				{
-					printf("Atendido");
-				}
-				else
-				{
-					printf("En espera");
-				}
 				i++;
 			}
 			fread(&datos, sizeof(turnos), 1, p);
@@ -526,4 +517,54 @@ void listurn(int matridein, char aux[60])
 
 		fclose(p);
 	}
+}
+
+//Vet - Opc 3 - Evolucion del paciente
+
+void evolucion(char aux[60])
+{	
+  	FILE *p,*s;
+	p = fopen("Turnos.dat", "rb+");
+	s=fopen("veterinarios.dat","rb");
+	turnos datos;
+	veterinario dat;
+		
+	bool x=false,band=false;
+
+	
+	fread(datos,sizeof(turnos),1,p);
+	
+	while(!feof(p) && band==false)
+	{
+
+		if (datos.borrado == true && aux==datos.masc.ApeNom)
+	    {	
+	    	fread(dat,sizeof(veterinario),1,s);
+	    	while(!feof(s) && x==false)
+	    	{
+	    		if(datos.matri==dat.matri)
+	    		{
+	    			
+	    			printf("\nApellido y nombre del veterinario %s",dat.ApeNom);
+					x=true;
+					
+	    		}
+	    		
+	    		
+	    		fread(dat,sizeof(veterinario),1,s);
+	    	}
+	        printf("FECHA DEL TURNO: %d/%d/%d\n", datos.fec.dd,datos.fec.mm,datos.fec.aa); 	
+	        
+	        printf("La evolucion del paciente: ");
+	        gets(datos.DetA);
+	        fseek(p, -sizeof(turnos), SEEK_CUR);
+	        
+	        fwrite(datos,sizeof(turnos),1,p);
+	        
+	        band=true;
+	    }
+	
+		fread(datos,sizeof(turnos),1,p);
+	}
+	fclose(p);	
 }
