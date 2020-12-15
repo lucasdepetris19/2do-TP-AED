@@ -927,7 +927,7 @@ void evolucion(turnos aux)
 
 	while (!feof(p) && band == false)
 	{
-		if (datos.borrado == true && strcmp(aux, datos.masc.ApeNom) && aux.fec.dd=datos.fec.dd && aux.fec.mm=datos.fec.mm && aux.fec.aa=datos.fec.aa;)
+		if (datos.borrado == true && strcmp(aux, datos.masc.ApeNom) && aux.fec.dd==datos.fec.dd && aux.fec.mm==datos.fec.mm && aux.fec.aa==datos.fec.aa)
 		{
 			fread(&dat, sizeof(veterinario), 1, s);
 			while (!feof(s) && x == false)
