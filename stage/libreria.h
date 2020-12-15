@@ -275,19 +275,17 @@ void regisvet()
 
 		_flushall();
 
-		/*Dependiente de funcion verifpass*/
-		// do
-		// {
-		// 	printf("Contrase√±a: ");
-		// 	gets(vet.contravet);
-		// } while (verifpass(vet.contravet));
-		// _flushall();
-
 		do
 		{
 			printf("Matricula (6 di≠gitos): ");
 			scanf("%06d", &vet.matri);
 			system("cls");
+
+			if (vet.matri <= 0 || vet.matri > 999999)
+			{
+				printf("La matricula debe ser de 6 digitos.\nVuelva a intentarlo.");
+			}
+
 		} while (vet.matri <= 0 || vet.matri > 999999);
 
 		do
@@ -364,19 +362,19 @@ void regiusuario()
 		gets(us.ApeNom);
 		system("cls");
 
-		// do
-		// {
-		_flushall();
-		printf("Nombre de usuario\n");
-		printf("El nombre de usuario debe tener las siguientes condiciones\n");
-		printf("1-Debe comenzar con una letra minuscula\n");
-		printf("2-Debe tener al menos 2 letras mayusculas\n");
-		printf("3-Debe contener entre 6 y 10 caractares\n");
-		printf("4-Debe contener como maximo 3 numeros\n");
-		printf("Ingrese un nombre de Usuario: ");
-		gets(us.user);
-		system("cls");
-		// } while (verifuser(us.user) == 0);
+		do
+		{
+			_flushall();
+			printf("Nombre de usuario\n");
+			printf("El nombre de usuario debe tener las siguientes condiciones\n");
+			printf("1-Debe comenzar con una letra minuscula\n");
+			printf("2-Debe tener al menos 2 letras mayusculas\n");
+			printf("3-Debe contener entre 6 y 10 caractares\n");
+			printf("4-Debe contener como maximo 3 numeros\n");
+			printf("Ingrese un nombre de Usuario: ");
+			gets(us.user);
+			system("cls");
+		} while (verifuser(us.user) == 0);
 
 		do
 		{
@@ -468,6 +466,82 @@ void listatencionvet()
 	}
 }
 
+//Admin - Opc 4 - Ranking
+void ranking()
+{
+	FILE *p, *s;
+	p = fopen("Turnos.dat", "rb");
+	s = fopen("veterinarios.dat", "rb+");
+	turnos datos;
+	veterinario dat;
+	bool x = false;
+	int v[50], n = 0, b, aux;
+
+	fread(&datos, sizeof(turnos), 1, p);
+
+	while (!feof(p))
+	{
+
+		if (datos.borrado == true)
+		{
+			rewind(s);
+			x = false;
+			fread(&dat, sizeof(veterinario), 1, s);
+			dat.rank = 0;
+			while (!feof(s) && x == false)
+			{
+
+				if (datos.matri == dat.matri)
+				{
+					dat.rank++;
+					fseek(s, -sizeof(veterinario), SEEK_CUR);
+					fwrite(&dat, sizeof(veterinario), 1, s);
+					x = true;
+				}
+				fread(&dat, sizeof(veterinario), 1, s);
+			}
+		}
+
+		fread(&datos, sizeof(turnos), 1, p);
+	}
+
+	rewind(s);
+
+	fread(&dat, sizeof(veterinario), 1, s);
+	while (!feof(s))
+	{
+		v[n] = dat.rank;
+		fread(&dat, sizeof(veterinario), 1, s);
+		if (!feof(s))
+		{
+			n++;
+		}
+	}
+	do
+	{
+		b = 0;
+		for (int i = 0; i < n - 1; i++)
+		{
+			if (v[i] < v[i + 1])
+			{
+				aux = v[i];
+				v[i] = v[i + 1];
+				v[i + 1] = aux;
+				b = 1;
+			}
+		}
+	} while (b == 1);
+
+	printf("RANKING DE VETERINARIOS");
+	for (int i = 0; i < n; i++)
+	{
+		printf("\nPUESTO N∞ %d: %d", i + 1, v[i]);
+	}
+
+	fclose(p);
+	fclose(s);
+}
+
 //********************USUARIO********************
 //Asist - Opc 1 - Iniciar sesion Usuario
 void loginuser(usuario &user, bool &login)
@@ -475,7 +549,7 @@ void loginuser(usuario &user, bool &login)
 	FILE *f;
 	f = fopen("Usuarios.dat", "r+b");
 	usuario aux;
-	int b = 0;
+	int b = 0, userenc = 0;
 	char username[10];
 	char contra[10];
 
@@ -491,26 +565,44 @@ void loginuser(usuario &user, bool &login)
 
 	while (!feof(f) && b == 0)
 	{
-		if (strcmp(username, aux.user) == 0 && strcmp(contra, aux.contra) == 0)
+		if (strcmp(username, aux.user) == 0)
 		{
-			user = aux;
-			login = true;
-			b = 1;
+			userenc = 1;
+			if (strcmp(contra, aux.contra) == 0)
+			{
+				user = aux;
+				login = true;
+				b = 1;
+			}
 		}
 		fread(&aux, sizeof(usuario), 1, f);
 	}
 
-	fclose(f);
-
-	if (b == 1)
+	if (userenc)
 	{
-		printf("Usuario y ContraseÒa Correctos\n\n");
+		printf("\nUsuario encontrado\n");
+		if (b)
+		{
+			printf("ContraseÒa encontrada");
+		}
+		else
+		{
+			printf("ContraseÒa incorrecta.\n Por favor vuelva a intentarlo");
+		}
+		system("Pause");
 	}
 	else
 	{
-		printf("Datos Incorrectos\n\n");
+		printf("No se encontro un Asistente con el nombre de usuario '%d'. Vuelva a Intentarlo\n", username);
 	}
 
+	if (userenc && b)
+	{
+		login = true;
+		printf("\n Logueo exitoso \n");
+	}
+
+	fclose(f);
 	system("pause");
 }
 
@@ -850,7 +942,7 @@ void evolucion(char aux[60])
 
 	while (!feof(p) && band == false)
 	{
-		if (datos.borrado == true && strcpy(aux,datos.masc.ApeNom))
+		if (datos.borrado == true && strcpy(aux, datos.masc.ApeNom))
 		{
 			fread(&dat, sizeof(veterinario), 1, s);
 			while (!feof(s) && x == false)
@@ -864,10 +956,9 @@ void evolucion(char aux[60])
 				fread(&dat, sizeof(veterinario), 1, s);
 			}
 			printf("\nFECHA DEL TURNO: %d/%d/%d\n", datos.fec.dd, datos.fec.mm, datos.fec.aa);
-			
-			
+
 			printf("La evolucion del paciente: ");
-			scanf("%s",datos.DetA);
+			scanf("%s", datos.DetA);
 			fseek(p, -sizeof(turnos), SEEK_CUR);
 
 			fwrite(&datos, sizeof(turnos), 1, p);
@@ -878,84 +969,4 @@ void evolucion(char aux[60])
 		fread(&datos, sizeof(turnos), 1, p);
 	}
 	fclose(p);
-<<<<<<< HEAD
 }
-=======
-}
-
-void ranking()
-{
-  	FILE *p,*s;
-	p=fopen("Turnos.dat", "rb");
-	s=fopen("veterinarios.dat","rb+");
-	turnos datos;
-	veterinario dat;
-	bool x=false;
-	int v[50],n=0,b,aux;
-
-	fread(&datos,sizeof(turnos),1,p);
-	
-	while(!feof(p))
-	{
-		
-		if (datos.borrado == true)
-	    {	
-	    	rewind(s);
-	    	x=false;
-	    	fread(&dat,sizeof(veterinario),1,s);
-	    	dat.rank=0;
-	    	while(!feof(s) && x==false)
-	    	{
-	    		
-	    		if(datos.matri==dat.matri)
-	    		{
-	    			dat.rank++;
-	    			fseek(s, -sizeof(veterinario), SEEK_CUR);
-	        		fwrite(&dat,sizeof(veterinario),1,s);	        
-					x=true;
-	    		}
-	    		fread(&dat,sizeof(veterinario),1,s);
-	    	}
-	    }
-	
-		fread(&datos,sizeof(turnos),1,p);
-	}
-	
-	rewind(s);
-	
-	fread(&dat,sizeof(veterinario),1,s);
-	while(!feof(s))
-	{
-		v[n]=dat.rank;
-		fread(&dat,sizeof(veterinario),1,s);
-		if(!feof(s))
-		{
-			n++;
-		}
-	}
-	do
-	{
-		b=0;
-		for(int i=0;i<n-1;i++)
-		{
-			if(v[i]<v[i+1])
-			{
-				aux=v[i];
-				v[i]=v[i+1];
-				v[i+1]=aux;	
-				b=1;		
-			}
-		}
-	}while(b==1);
-	
-	
-	printf("RANKING DE VETERINARIOS");
-	for(int i=0;i<n;i++)
-	{
-		printf("\nPUESTO N∞ %d: %d",i+1,v[i]);
-	}
-	
-	fclose(p);
-	fclose(s);
-}
->>>>>>> c2b267e682ad756273bcfa1b374b366ef474970d
