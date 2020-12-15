@@ -184,19 +184,17 @@ bool verifuser(char usuario[10])
 
 	// printf("n%d min%d may%d",num,min,may);
 
-	if (num == 0 || min == 0 || may == 0)
-	{
-		printf("Por favor ingrese un usuario valido\n");
-	}
-
 	if (num == 1 && min == 1 && may == 1)
 	{
 		printf("Usuario valido");
 		getch();
 		return true;
 	}
-
-	return verificacion;
+	else
+	{
+		printf("Ingrese un usuario con al menos una minuscula, dos mayusculas y tres numeros");
+		return verificacion;
+	}
 }
 
 //Aux registurn
@@ -478,7 +476,6 @@ void ranking()
 
 	while (!feof(p))
 	{
-
 		if (datos.borrado == true)
 		{
 			rewind(s);
@@ -486,7 +483,6 @@ void ranking()
 			fread(&dat, sizeof(veterinario), 1, s);
 			while (!feof(s) && x == false)
 			{
-
 				if (datos.matri == dat.matri)
 				{
 					dat.rank++;
@@ -513,6 +509,7 @@ void ranking()
 			n++;
 		}
 	}
+
 	do
 	{
 		b = 0;
