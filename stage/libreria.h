@@ -746,11 +746,12 @@ void listatencionvetfec()
 					b2 = 1;
 					printf("\n------------------------------------------------\n");
 					printf("FECHA DEL TURNO: %d/%d/%d\n", datos.fec.dd, datos.fec.mm, datos.fec.aa);
+					printf("MASCOTA %d\n", i + 1);
 					printf("Apellido y Nombre de la mascota: %s", datos.masc.ApeNom);
-					printf("DNI del dueño: %d", datos.masc.DNI);
-					printf("Localidad de la mascota: %s", datos.masc.Loc);
-					printf("\nEdad de la mascota: %d\n", (2020 - datos.masc.fec.aa));
-					printf("Peso de la mascota: %f", datos.masc.peso);
+					printf("\tDNI del dueño: %d", datos.masc.DNI);
+					printf("\nLocalidad de la mascota: %s", datos.masc.Loc);
+					printf("\nEdad de la mascota: %d años", (2020 - datos.masc.fec.aa));
+					printf("\tPeso de la mascota: %.2fkg", datos.masc.peso);
 					i++;
 				}
 			}
@@ -838,12 +839,12 @@ void loginvet(veterinario &vet, bool &login)
 }
 
 //Vet - Opc 2 - Listar Turnos y atender
-void listurn(int matridein, turnos aux, bool &band)
+void listurn(int matridein, turnos aux, bool &band1)
 {
 	FILE *p = fopen("Turnos.dat", "r+b");
 	turnos datos;
 	int i, op;
-	bool band;
+	bool band=false;
 
 	if (p == NULL)
 	{
@@ -898,7 +899,7 @@ void listurn(int matridein, turnos aux, bool &band)
 					aux.fec.dd=datos.fec.dd;
 					aux.fec.mm=datos.fec.mm;
 					aux.fec.aa=datos.fec.aa;
-					band = true;
+					band1 = true;
 				}
 				band = true;
 				getch();
@@ -945,7 +946,7 @@ void evolucion(turnos aux)
 
 			_flushall();
 			printf("La evolucion del paciente: ");
-			scanf("%s", datos.DetA);
+			gets(datos.DetA);
 			fseek(p, -sizeof(turnos), SEEK_CUR);
 
 			fwrite(&datos, sizeof(turnos), 1, p);
@@ -955,5 +956,6 @@ void evolucion(turnos aux)
 
 		fread(&datos, sizeof(turnos), 1, p);
 	}
+	fclose(s);
 	fclose(p);
 }
