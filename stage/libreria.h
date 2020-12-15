@@ -199,7 +199,6 @@ bool verifuser(char usuario[10])
 	return verificacion;
 }
 
-
 //Aux registurn
 int buscamatri(int buscamat)
 {
@@ -322,8 +321,8 @@ void regisvet()
 			system("cls");
 
 		} while (strlen(vet.telef) == 0 || b == 1);
-		
-		vet.rank=0;
+
+		vet.rank = 0;
 		fwrite(&vet, sizeof(vet), 1, fp);
 
 		_flushall();
@@ -332,8 +331,6 @@ void regisvet()
 		system("cls");
 
 	} while (op == 'S' || op == 's');
-
-	
 
 	fclose(fp);
 
@@ -543,7 +540,7 @@ void ranking()
 
 //********************USUARIO********************
 //Asist - Opc 1 - Iniciar sesion Usuario
-void loginuser(usuario &user)
+void loginuser(usuario &user, bool login)
 {
 	FILE *f;
 	f = fopen("Usuarios.dat", "r+b");
