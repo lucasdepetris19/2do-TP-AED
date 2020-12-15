@@ -1,6 +1,6 @@
 #include <unistd.h>
 
-int time=50000;
+int time = 50000;
 
 int menuVet(bool login)
 {
@@ -46,13 +46,14 @@ int menuVet(bool login)
     usleep(time);
     printf("\tSeleccione una Opción: ");
     scanf("%d", &opc);
-    
-    if(login==false && opc>1 && opc<4){
+
+    if (login == false && opc > 1 && opc < 4)
+    {
         printf("\n\n\t\tSe requiere iniciar sesión para acceder a esta opción");
         printf("\n\t\tSera redirigido al area de inicio de sesión");
-        opc=1;
+        opc = 1;
     }
-    
+
     return opc; //retorna el número de opción seleccionada.
 }
 
@@ -109,11 +110,12 @@ int menuAsist(bool login)
     usleep(time);
     printf("\t\tSeleccione una Opción: ");
     scanf("%d", &opc);
- 
-    if(login==false && opc>1 && opc<5){
+
+    if (login == false && opc > 1 && opc < 5)
+    {
         printf("\n\n\t\tSe requiere iniciar sesión para acceder a esta opción");
         printf("\n\t\tSera redirigido al area de inicio de sesión");
-        opc=1;
+        opc = 1;
     }
 
     return opc; //retorna el número de opción seleccionada.
