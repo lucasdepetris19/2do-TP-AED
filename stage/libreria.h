@@ -528,7 +528,7 @@ void ranking()
 
 //********************USUARIO********************
 //Asist - Opc 1 - Iniciar sesion Usuario
-void loginuser(usuario &user, bool login)
+void loginuser(usuario &user, bool &login)
 {
 	FILE *f;
 	f = fopen("Usuarios.dat", "r+b");
@@ -573,7 +573,6 @@ void loginuser(usuario &user, bool login)
 		{
 			printf("\nContraseña incorrecta.\nVuelva a intentarlo");
 		}
-		system("Pause");
 	}
 	else
 	{
@@ -675,7 +674,7 @@ void registurn()
 		b = 0;
 		do
 		{
-			printf("DNI del Dueño (8 dígitos): ");
+			printf("\nDNI del Dueño (8 dígitos): ");
 			scanf("%08d", &turno.DNI_dueno);
 			// printf("Dni ingresado: %d",turno.DNI_dueno);
 			if (turno.DNI_dueno < 10000000 || turno.DNI_dueno > 99999999)
@@ -822,7 +821,7 @@ void loginvet(veterinario &vet, bool &login)
 		{
 			printf("\t\tContraseñaa incorrecta.\n Por favor vuelva a ingresar la contrasenia");
 		}
-		system("Pause");
+
 	}
 	else
 	{
@@ -839,7 +838,7 @@ void loginvet(veterinario &vet, bool &login)
 }
 
 //Vet - Opc 2 - Listar Turnos y atender
-void listurn(int matridein, char aux[60])
+void listurn(int matridein, turnos aux)
 {
 	FILE *p = fopen("Turnos.dat", "r+b");
 	turnos datos;
@@ -895,7 +894,10 @@ void listurn(int matridein, char aux[60])
 					fseek(p, -sizeof(turnos), SEEK_CUR);
 					fwrite(&datos, sizeof(turnos), 1, p);
 					printf("¡Atención confirmada!\n\n");
-					strcpy(aux, datos.masc.ApeNom);
+					strcpy(aux.masc.ApeNom, datos.masc.ApeNom);
+					aux.fec.dd=datos.fec.dd;
+					aux.fec.mm=datos.fec.mm;
+					aux.fec.aa=datos.fec.aa;
 				}
 				band = true;
 				getch();
@@ -911,7 +913,7 @@ void listurn(int matridein, char aux[60])
 }
 
 //Vet - Opc 3 - Evolucion del paciente
-void evolucion(char aux[60])
+void evolucion(turnos aux)
 {
 	FILE *p, *s;
 	p = fopen("Turnos.dat", "rb+");
@@ -925,14 +927,14 @@ void evolucion(char aux[60])
 
 	while (!feof(p) && band == false)
 	{
-		if (datos.borrado == true && strcmp(aux, datos.masc.ApeNom))
+		if (datos.borrado == true && strcmp(aux, datos.masc.ApeNom) && aux.fec.dd=datos.fec.dd && aux.fec.mm=datos.fec.mm && aux.fec.aa=datos.fec.aa;)
 		{
 			fread(&dat, sizeof(veterinario), 1, s);
 			while (!feof(s) && x == false)
 			{
 				if (datos.matri == dat.matri)
 				{
-					printf("\nApellido y nombre del veterinario %s", dat.ApeNom);
+					printf("\nVeterinario: %s", dat.ApeNom);
 					x = true;
 				}
 
@@ -940,6 +942,7 @@ void evolucion(char aux[60])
 			}
 			printf("\nFECHA DEL TURNO: %d/%d/%d\n", datos.fec.dd, datos.fec.mm, datos.fec.aa);
 
+			_flushall();
 			printf("La evolucion del paciente: ");
 			scanf("%s", datos.DetA);
 			fseek(p, -sizeof(turnos), SEEK_CUR);
