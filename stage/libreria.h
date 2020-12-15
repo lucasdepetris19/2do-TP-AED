@@ -838,7 +838,7 @@ void loginvet(veterinario &vet, bool &login)
 }
 
 //Vet - Opc 2 - Listar Turnos y atender
-void listurn(int matridein, turnos aux)
+void listurn(int matridein, turnos aux, bool &band)
 {
 	FILE *p = fopen("Turnos.dat", "r+b");
 	turnos datos;
@@ -898,6 +898,7 @@ void listurn(int matridein, turnos aux)
 					aux.fec.dd=datos.fec.dd;
 					aux.fec.mm=datos.fec.mm;
 					aux.fec.aa=datos.fec.aa;
+					band = true;
 				}
 				band = true;
 				getch();
@@ -927,7 +928,7 @@ void evolucion(turnos aux)
 
 	while (!feof(p) && band == false)
 	{
-		if (datos.borrado == true && strcmp(aux, datos.masc.ApeNom) && aux.fec.dd==datos.fec.dd && aux.fec.mm==datos.fec.mm && aux.fec.aa==datos.fec.aa)
+		if (datos.borrado == true && strcmp(aux.masc.ApeNom, datos.masc.ApeNom) && aux.fec.dd==datos.fec.dd && aux.fec.mm==datos.fec.mm && aux.fec.aa==datos.fec.aa);
 		{
 			fread(&dat, sizeof(veterinario), 1, s);
 			while (!feof(s) && x == false)

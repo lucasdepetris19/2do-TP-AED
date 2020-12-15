@@ -29,8 +29,8 @@ int main()
     system("color 5F");
     int opcion;
     veterinario vet;
-    char apnom[60];
-    bool login = false;
+    turnos aux;
+    bool login = false, band = false;
 
     do
     {
@@ -39,16 +39,31 @@ int main()
         {
         case 1:
             login = false;
-            loginvet(vet, login); //pendiente agregar loginvet
+            loginvet(vet, login);
             getch();
             break;
         case 2:
-            listurn(vet.matri, apnom);
-            // printf("Apellido y Nombre de la mascota: %s",apnom);
+            if (band == false)
+            {
+                listurn(vet.matri, aux, band);
+            }
+            else
+            {
+                printf("\nRegistre la evolución de la ultima mascota atendida para continuar.");
+            }
             getch();
             break;
         case 3:
-            evolucion(apnom);
+            if (band == true)
+            {
+                band = false;
+                evolucion(aux);
+            }
+            else
+            {
+                printf("\nSe requiere llamar a una mascota para acceder a esta opción.");
+            }
+
             getch();
             break;
         case 4:
