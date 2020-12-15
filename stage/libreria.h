@@ -124,9 +124,81 @@ bool verifpass(char pass[33])
 }
 
 //Aux regisvet/regiusuario - Verificar cond usuario
-//bool verifuser()
-//{
-//}
+bool verifuser(char usuario[10])
+{
+	char aux1[10];
+	int i, cantidad = 0, min = 0, num = 0, may = 0, n = 27, mayus = 0;
+	bool verificacion = true;
+
+	cantidad = strlen(usuario);
+
+	strcpy(aux1, usuario);
+	strlwr(aux1); //convertimos en minuscula
+
+	if (usuario[0] < 'a' || usuario[0] > 'z')
+	{
+		printf("Error. El nombre debe comenzar con minusculas\n\n");
+		getch();
+		return false;
+	}
+
+	if (cantidad <= 6 || cantidad >= 10)
+	{
+		printf("Debe tener entre 6 y 10 caracteres\n\n");
+		getch();
+		return false;
+	}
+
+	// printf("%s", usuario);
+	for (i = 0; i < cantidad; i++)
+	{
+		if (usuario[i] > 64 && usuario[i] < 91) //letras mayusculas
+		{
+			mayus++;
+		}
+
+		if (usuario[i] >= 97 && usuario[i] < 122) //letras minusculas
+		{
+			min++;
+		}
+
+		if (usuario[i] > 47 && usuario[i] < 58) //Numeros
+		{
+			num++;
+		}
+	}
+
+	if (num > 3)
+	{
+		printf("NO DEBE TENER MAS DE 3 DIGITOS\n");
+		getch();
+		return false;
+	}
+
+	if (mayus > 2)
+	{
+		printf("NO DEBE TENER MAS DE 2 MAYUSCULAS\n");
+		getch();
+		return false;
+	}
+
+	// printf("n%d min%d may%d",num,min,may);
+
+	if (num == 0 || min == 0 || may == 0)
+	{
+		printf("Por favor ingrese un usuario valido\n");
+	}
+
+	if (num == 1 && min == 1 && may == 1)
+	{
+		printf("Usuario valido");
+		getch();
+		return true;
+	}
+
+	return verificacion;
+}
+
 
 //Aux registurn
 int buscamatri(int buscamat)
@@ -178,9 +250,6 @@ int verifdni(turnos &turn)
 //Admin - Opc 1 - Registrar Veterinario
 void regisvet()
 {
-	// char nom[20], ape[20], carrera[30];
-	// int cantf = 0, b = 0;
-	// float prom = 0;
 	int b = 0, i;
 	char op;
 	veterinario vet;
@@ -203,19 +272,17 @@ void regisvet()
 
 		_flushall();
 
-		/*Dependiente de funcion verifpass*/
-		// do
-		// {
-		// 	printf("ContraseÃ±a: ");
-		// 	gets(vet.contravet);
-		// } while (verifpass(vet.contravet));
-		// _flushall();
-
 		do
 		{
 			printf("Matricula (6 di­gitos): ");
 			scanf("%06d", &vet.matri);
 			system("cls");
+
+			if (vet.matri <= 0 || vet.matri > 999999)
+			{
+				printf("La matricula debe ser de 6 digitos.\nVuelva a intentarlo.");
+			}
+
 		} while (vet.matri <= 0 || vet.matri > 999999);
 
 		do
@@ -255,6 +322,9 @@ void regisvet()
 			system("cls");
 
 		} while (strlen(vet.telef) == 0 || b == 1);
+		
+		vet.rank=0;
+		fwrite(&vet, sizeof(vet), 1, fp);
 
 		_flushall();
 		printf("\n\n¿Registrar otro Veterinario? (S/N): ");
@@ -263,7 +333,7 @@ void regisvet()
 
 	} while (op == 'S' || op == 's');
 
-	fwrite(&vet, sizeof(vet), 1, fp);
+	
 
 	fclose(fp);
 
@@ -292,24 +362,24 @@ void regiusuario()
 		gets(us.ApeNom);
 		system("cls");
 
-		// do
-		// {
-		_flushall();
-		printf("Nombre de usuario\n");
-		printf("El nombre de usuario debe tener las siguientes condiciones\n");
-		printf("1-Debe comenzar con una letra minuscula\n");
-		printf("2-Debe tener al menos 2 letras mayusculas\n");
-		printf("3-Debe contener entre 6 y 10 caractares\n");
-		printf("4-Debe contener como maximo 3 numeros\n");
-		printf("Ingrese un nombre de Usuario: ");
-		gets(us.user);
-		system("cls");
-		// } while (verifuser(us.user) == 0);
+		do
+		{
+			_flushall();
+			printf("Nombre de usuario\n");
+			printf("El nombre de usuario debe tener las siguientes condiciones\n");
+			printf("1-Debe comenzar con una letra minuscula\n");
+			printf("2-Debe tener al menos 2 letras mayusculas\n");
+			printf("3-Debe contener entre 6 y 10 caractares\n");
+			printf("4-Debe contener como maximo 3 numeros\n");
+			printf("Ingrese un nombre de Usuario: ");
+			gets(us.user);
+			system("cls");
+		} while (verifuser(us.user) == 0);
 
 		do
 		{
 			_flushall();
-			printf("Contraseña\n");
+			printf("\nContraseña\n");
 			printf("La contraseña debe respetar los siguientes terminos:\n");
 			printf("1-Debe contener al menos una letra mayúscula, una letra minúscula y un número\n");
 			printf("2-No puede tener un caracter de puntuación\n");
@@ -396,6 +466,81 @@ void listatencionvet()
 	}
 }
 
+//Admin - Opc 4 - Ranking
+void ranking()
+{
+	FILE *p, *s;
+	p = fopen("Turnos.dat", "rb");
+	s = fopen("veterinarios.dat", "rb+");
+	turnos datos;
+	veterinario dat;
+	bool x = false;
+	int v[50], n = 0, b, aux;
+
+	fread(&datos, sizeof(turnos), 1, p);
+
+	while (!feof(p))
+	{
+
+		if (datos.borrado == true)
+		{
+			rewind(s);
+			x = false;
+			fread(&dat, sizeof(veterinario), 1, s);
+			while (!feof(s) && x == false)
+			{
+
+				if (datos.matri == dat.matri)
+				{
+					dat.rank++;
+					fseek(s, -sizeof(veterinario), SEEK_CUR);
+					fwrite(&dat, sizeof(veterinario), 1, s);
+					x = true;
+				}
+				fread(&dat, sizeof(veterinario), 1, s);
+			}
+		}
+
+		fread(&datos, sizeof(turnos), 1, p);
+	}
+
+	rewind(s);
+
+	fread(&dat, sizeof(veterinario), 1, s);
+	while (!feof(s))
+	{
+		v[n] = dat.rank;
+		fread(&dat, sizeof(veterinario), 1, s);
+		if (!feof(s))
+		{
+			n++;
+		}
+	}
+	do
+	{
+		b = 0;
+		for (int i = 0; i < n - 1; i++)
+		{
+			if (v[i] < v[i + 1])
+			{
+				aux = v[i];
+				v[i] = v[i + 1];
+				v[i + 1] = aux;
+				b = 1;
+			}
+		}
+	} while (b == 1);
+
+	printf("RANKING DE VETERINARIOS");
+	for (int i = 0; i < n; i++)
+	{
+		printf("\nPUESTO N° %d: %d", i + 1, v[i]);
+	}
+
+	fclose(p);
+	fclose(s);
+}
+
 //********************USUARIO********************
 //Asist - Opc 1 - Iniciar sesion Usuario
 void loginuser(usuario &user)
@@ -403,7 +548,7 @@ void loginuser(usuario &user)
 	FILE *f;
 	f = fopen("Usuarios.dat", "r+b");
 	usuario aux;
-	int b = 0;
+	int b = 0, userenc = 0;
 	char username[10];
 	char contra[10];
 
@@ -419,25 +564,44 @@ void loginuser(usuario &user)
 
 	while (!feof(f) && b == 0)
 	{
-		if (strcmp(username, aux.user) == 0 && strcmp(contra, aux.contra) == 0)
+		if (strcmp(username, aux.user) == 0)
 		{
-			user = aux;
-			b = 1;
+			userenc = 1;
+			if (strcmp(contra, aux.contra) == 0)
+			{
+				user = aux;
+				login = true;
+				b = 1;
+			}
 		}
 		fread(&aux, sizeof(usuario), 1, f);
 	}
 
-	fclose(f);
-
-	if (b == 1)
+	if (userenc)
 	{
-		printf("Usuario y Contraseña Correctos\n\n");
+		printf("\nUsuario encontrado\n");
+		if (b)
+		{
+			printf("Contraseña encontrada");
+		}
+		else
+		{
+			printf("Contraseña incorrecta.\n Por favor vuelva a intentarlo");
+		}
+		system("Pause");
 	}
 	else
 	{
-		printf("Datos Incorrectos\n\n");
+		printf("No se encontro un Asistente con el nombre de usuario '%d'. Vuelva a Intentarlo\n", username);
 	}
 
+	if (userenc && b)
+	{
+		login = true;
+		printf("\n Logueo exitoso \n");
+	}
+
+	fclose(f);
 	system("pause");
 }
 
@@ -630,7 +794,64 @@ void listatencionvetfec()
 
 //********************VETERINARIO********************
 //Vet - Opc 1 - Iniciar Sesion Vet
-// void loginvet()
+void loginvet(veterinario &vet, bool &login)
+{
+	FILE *p;
+	p = fopen("Veterinarios.dat", "r+");
+
+	veterinario datos;
+	int busqueda;
+	bool bus = false, contra = false;
+	char aux2[33];
+
+	printf("\n\t\tIngrese el número de matricula: ");
+	scanf("%d", &busqueda);
+
+	_flushall();
+	printf("\t\tIngrese la contraseña: ");
+	gets(aux2);
+
+	fread(&datos, sizeof(veterinario), 1, p);
+
+	while (!feof(p) && contra == false)
+	{
+		if (busqueda == datos.matri)
+		{
+			bus = true;
+			if (strcmp(aux2, datos.contravet) == 0)
+			{
+				vet = datos;
+				contra = true;
+			}
+		}
+		fread(&datos, sizeof(veterinario), 1, p);
+	}
+	if (bus)
+	{
+		printf("\n\t\tMatricula encontrada\n");
+		if (contra)
+		{
+			printf("\t\tContraseña encontrada");
+		}
+		else
+		{
+			printf("\t\tContraseñaa incorrecta.\n Por favor vuelva a ingresar la contrasenia");
+		}
+		system("Pause");
+	}
+	else
+	{
+		printf("\t\tNo se encontro un Veterinario con la Matricula '%d'. Vuelva a Intentarlo\n", busqueda);
+	}
+
+	if (bus && contra)
+	{
+		login = true;
+		printf("\n Logueo exitoso \n");
+	}
+	system("pause");
+	fclose(p);
+}
 
 //Vet - Opc 2 - Listar Turnos y atender
 void listurn(int matridein, char aux[60])
@@ -642,7 +863,7 @@ void listurn(int matridein, char aux[60])
 
 	if (p == NULL)
 	{
-		printf("\n\nEl archivo no existe");
+		printf("\n\n\t\tEl archivo no existe");
 	}
 	else
 	{
@@ -719,7 +940,7 @@ void evolucion(char aux[60])
 
 	while (!feof(p) && band == false)
 	{
-		if (datos.borrado == true && strcpy(aux,datos.masc.ApeNom))
+		if (datos.borrado == true && strcpy(aux, datos.masc.ApeNom))
 		{
 			fread(&dat, sizeof(veterinario), 1, s);
 			while (!feof(s) && x == false)
@@ -733,10 +954,9 @@ void evolucion(char aux[60])
 				fread(&dat, sizeof(veterinario), 1, s);
 			}
 			printf("\nFECHA DEL TURNO: %d/%d/%d\n", datos.fec.dd, datos.fec.mm, datos.fec.aa);
-			
-			
+
 			printf("La evolucion del paciente: ");
-			scanf("%s",datos.DetA);
+			scanf("%s", datos.DetA);
 			fseek(p, -sizeof(turnos), SEEK_CUR);
 
 			fwrite(&datos, sizeof(turnos), 1, p);
@@ -747,80 +967,4 @@ void evolucion(char aux[60])
 		fread(&datos, sizeof(turnos), 1, p);
 	}
 	fclose(p);
-}
-
-void ranking()
-{
-  	FILE *p,*s;
-	p=fopen("Turnos.dat", "rb");
-	s=fopen("veterinarios.dat","rb+");
-	turnos datos;
-	veterinario dat;
-	bool x=false;
-	int v[50],n=0,b,aux;
-
-	fread(&datos,sizeof(turnos),1,p);
-	
-	while(!feof(p))
-	{
-		
-		if (datos.borrado == true)
-	    {	
-	    	rewind(s);
-	    	x=false;
-	    	fread(&dat,sizeof(veterinario),1,s);
-	    	dat.rank=0;
-	    	while(!feof(s) && x==false)
-	    	{
-	    		
-	    		if(datos.matri==dat.matri)
-	    		{
-	    			dat.rank++;
-	    			fseek(s, -sizeof(veterinario), SEEK_CUR);
-	        		fwrite(&dat,sizeof(veterinario),1,s);	        
-					x=true;
-	    		}
-	    		fread(&dat,sizeof(veterinario),1,s);
-	    	}
-	    }
-	
-		fread(&datos,sizeof(turnos),1,p);
-	}
-	
-	rewind(s);
-	
-	fread(&dat,sizeof(veterinario),1,s);
-	while(!feof(s))
-	{
-		v[n]=dat.rank;
-		fread(&dat,sizeof(veterinario),1,s);
-		if(!feof(s))
-		{
-			n++;
-		}
-	}
-	do
-	{
-		b=0;
-		for(int i=0;i<n-1;i++)
-		{
-			if(v[i]<v[i+1])
-			{
-				aux=v[i];
-				v[i]=v[i+1];
-				v[i+1]=aux;	
-				b=1;		
-			}
-		}
-	}while(b==1);
-	
-	
-	printf("RANKING DE VETERINARIOS");
-	for(int i=0;i<n;i++)
-	{
-		printf("\nPUESTO N° %d: %d",i+1,v[i]);
-	}
-	
-	fclose(p);
-	fclose(s);
 }
