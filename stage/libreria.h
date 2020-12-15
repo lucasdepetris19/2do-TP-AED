@@ -126,25 +126,21 @@ bool verifpass(char pass[33])
 //Aux regisvet/regiusuario - Verificar cond usuario
 bool verifuser(char usuario[10])
 {
-	char aux1[10];
-	int i, cantidad = 0, min = 0, num = 0, may = 0, n = 27, mayus = 0;
+	int i, cantidad = 0, min = 0, num = 0, may = 0, mayus = 0;
 	bool verificacion = true;
 
 	cantidad = strlen(usuario);
 
-	strcpy(aux1, usuario);
-	strlwr(aux1); //convertimos en minuscula
-
-	if (usuario[0] < 'a' || usuario[0] > 'z')
+	if (cantidad <= 6 || cantidad >= 10)
 	{
-		printf("Error. El nombre debe comenzar con minusculas\n\n");
+		printf("\nIngrese un nombre de usuario de entre 6 y 10 caracteres\n\n");
 		getch();
 		return false;
 	}
 
-	if (cantidad <= 6 || cantidad >= 10)
+	if (usuario[0] < 'a' || usuario[0] > 'z')
 	{
-		printf("Debe tener entre 6 y 10 caracteres\n\n");
+		printf("\nError. El nombre debe comenzar con minusculas\n\n");
 		getch();
 		return false;
 	}
@@ -170,31 +166,21 @@ bool verifuser(char usuario[10])
 
 	if (num > 3)
 	{
-		printf("NO DEBE TENER MAS DE 3 DIGITOS\n");
+		printf("Supero el limite de digitos en el nombre\n");
 		getch();
 		return false;
 	}
 
 	if (mayus > 2)
 	{
-		printf("NO DEBE TENER MAS DE 2 MAYUSCULAS\n");
+		printf("Supero el limite de mayusculas en el nombre\n");
 		getch();
 		return false;
 	}
-
-	// printf("n%d min%d may%d",num,min,may);
-
-	if (num == 1 && min == 1 && may == 1)
-	{
-		printf("Usuario valido");
-		getch();
-		return true;
-	}
-	else
-	{
-		printf("Ingrese un usuario con al menos una minuscula, dos mayusculas y tres numeros");
-		return verificacion;
-	}
+	
+	printf("Usuario valido");
+	getch();
+	return true;
 }
 
 //Aux registurn
@@ -552,11 +538,11 @@ void loginuser(usuario &user, bool login)
 	char contra[10];
 
 	_flushall();
-	printf("Ingrese el nombre de usuario: ");
+	printf("\nIngrese el nombre de usuario: ");
 	gets(username);
 
 	_flushall();
-	printf("Ingrese la contrasena: ");
+	printf("Ingrese la contraseña: ");
 	gets(contra);
 
 	fread(&aux, sizeof(usuario), 1, f);
@@ -578,26 +564,26 @@ void loginuser(usuario &user, bool login)
 
 	if (userenc)
 	{
-		printf("\nUsuario encontrado\n");
+		printf("\nUsuario encontrado");
 		if (b)
 		{
-			printf("Contraseña encontrada");
+			printf("\nContraseña encontrada");
 		}
 		else
 		{
-			printf("Contraseña incorrecta.\n Por favor vuelva a intentarlo");
+			printf("\nContraseña incorrecta.\nVuelva a intentarlo");
 		}
 		system("Pause");
 	}
 	else
 	{
-		printf("No se encontro un Asistente con el nombre de usuario '%d'. Vuelva a Intentarlo\n", username);
+		printf("\nNo se encontro un Asistente con el nombre de usuario '%d'.\nVuelva a Intentarlo\n", username);
 	}
 
 	if (userenc && b)
 	{
 		login = true;
-		printf("\n Logueo exitoso \n");
+		printf("\n --- Logueo exitoso --- \n");
 	}
 
 	fclose(f);
