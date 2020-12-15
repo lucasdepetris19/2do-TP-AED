@@ -798,18 +798,18 @@ void listatencionvetfec()
 void loginvet(veterinario &vet, bool &login)
 {
 	FILE *p;
-	p = fopen("Veterinarios.dat", "r");
+	p = fopen("Veterinarios.dat", "r+");
 
 	veterinario datos;
 	int busqueda;
 	bool bus = false, contra = false;
 	char aux2[33];
 
-	printf("Ingrese el número de matricula: ");
+	printf("\n\t\tIngrese el número de matricula: ");
 	scanf("%d", &busqueda);
 
 	_flushall();
-	printf("Ingrese la contraseña: ");
+	printf("\t\tIngrese la contraseña: ");
 	gets(aux2);
 
 	fread(&datos, sizeof(veterinario), 1, p);
@@ -825,25 +825,24 @@ void loginvet(veterinario &vet, bool &login)
 				contra = true;
 			}
 		}
-		fread(&datos, sizeof(turnos), 1, p);
+		fread(&datos, sizeof(veterinario), 1, p);
 	}
-
 	if (bus)
 	{
-		printf("\nMatricula encontrada\n");
+		printf("\n\t\tMatricula encontrada\n");
 		if (contra)
 		{
-			printf("Contraseña encontrada");
+			printf("\t\tContraseña encontrada");
 		}
 		else
 		{
-			printf("Contraseñaa incorrecta.\n Por favor vuelva a ingresar la contrasenia");
+			printf("\t\tContraseñaa incorrecta.\n Por favor vuelva a ingresar la contrasenia");
 		}
 		system("Pause");
 	}
 	else
 	{
-		printf("No se encontro un Veterinario con la Matricula '%d'. Vuelva a Intentarlo\n", busqueda);
+		printf("\t\tNo se encontro un Veterinario con la Matricula '%d'. Vuelva a Intentarlo\n", busqueda);
 	}
 
 	if (bus && contra)
@@ -865,7 +864,7 @@ void listurn(int matridein, char aux[60])
 
 	if (p == NULL)
 	{
-		printf("\n\nEl archivo no existe");
+		printf("\n\n\t\tEl archivo no existe");
 	}
 	else
 	{
