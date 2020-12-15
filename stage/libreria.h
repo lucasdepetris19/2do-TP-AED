@@ -937,7 +937,7 @@ void evolucion(char aux[60])
 
 	while (!feof(p) && band == false)
 	{
-		if (datos.borrado == true && strcpy(aux, datos.masc.ApeNom))
+		if (datos.borrado == true && strcmp(aux, datos.masc.ApeNom))
 		{
 			fread(&dat, sizeof(veterinario), 1, s);
 			while (!feof(s) && x == false)
