@@ -254,7 +254,9 @@ void regisvet()
 	veterinario vet;
 
 	FILE *fp = fopen("Veterinarios.dat", "a+b");
-
+	
+	system("cls");
+	
 	printf("\n\t---------------------------");
 	printf("\n         Registro de Veterinarios");
 	printf("\n\t---------------------------\n");
@@ -275,7 +277,7 @@ void regisvet()
 		{
 			printf("Matricula (6 di­gitos): ");
 			scanf("%06d", &vet.matri);
-			system("cls");
+
 
 			if (vet.matri <= 0 || vet.matri > 999999)
 			{
@@ -295,14 +297,14 @@ void regisvet()
 			printf("4-No debe contener 2 letras consecutivas\n");
 			printf("Ingrese una contrasena: ");
 			gets(vet.contravet);
-			system("cls");
+
 		} while (verifpass(vet.contravet) == 0);
 
 		do
 		{
-			printf("DNI: ");
+			printf("\nDNI: ");
 			scanf("%08d", &vet.DNI_vet);
-			system("cls");
+
 		} while (vet.DNI_vet < 10000000 || vet.DNI_vet > 99999999);
 
 		_flushall();
@@ -318,7 +320,7 @@ void regisvet()
 					b = 1;
 				i++;
 			}
-			system("cls");
+
 
 		} while (strlen(vet.telef) == 0 || b == 1);
 
@@ -348,7 +350,9 @@ void regiusuario()
 
 	FILE *arch;
 	arch = fopen("Usuarios.dat", "a+b");
-
+	
+	system("cls");
+	
 	do
 	{
 		ban = 0;
@@ -357,7 +361,7 @@ void regiusuario()
 		printf("Ingrese Apellido y Nombre del usuario: ");
 		_flushall();
 		gets(us.ApeNom);
-		system("cls");
+		
 
 		do
 		{
@@ -370,7 +374,7 @@ void regiusuario()
 			printf("4-Debe contener como maximo 3 numeros\n");
 			printf("Ingrese un nombre de Usuario: ");
 			gets(us.user);
-			system("cls");
+
 		} while (verifuser(us.user) == 0);
 
 		do
@@ -384,7 +388,7 @@ void regiusuario()
 			printf("4-No debe contener 2 letras consecutivas\n");
 			printf("Ingrese una contrasena: ");
 			gets(us.contra);
-			system("cls");
+
 		} while (verifpass(us.contra) == 0);
 
 		fwrite(&us, sizeof(us), 1, arch);
@@ -470,9 +474,9 @@ void ranking()
 	p = fopen("Turnos.dat", "rb");
 	s = fopen("veterinarios.dat", "rb+");
 	turnos datos;
-	veterinario dat;
+	veterinario dat, v[50], aux;
 	bool x = false;
-	int v[50], n = 0, b, aux;
+	int  n = 0, b;
 
 	fread(&datos, sizeof(turnos), 1, p);
 
@@ -506,7 +510,8 @@ void ranking()
 	fread(&dat, sizeof(veterinario), 1, s);
 	while (!feof(s))
 	{
-		v[n] = dat.rank;
+		strcpy(v[n].ApeNom,dat.ApeNom);
+		v[n].rank = dat.rank;
 		fread(&dat, sizeof(veterinario), 1, s);
 		if (!feof(s))
 		{
@@ -518,7 +523,7 @@ void ranking()
 		b = 0;
 		for (int i = 0; i < n - 1; i++)
 		{
-			if (v[i] < v[i + 1])
+			if (v[i].rank < v[i + 1].rank)
 			{
 				aux = v[i];
 				v[i] = v[i + 1];
@@ -531,7 +536,7 @@ void ranking()
 	printf("RANKING DE VETERINARIOS");
 	for (int i = 0; i < n; i++)
 	{
-		printf("\nPUESTO N° %d: %d", i + 1, v[i]);
+		printf("\nPUESTO N° %d para %s con: %d", i + 1, v[i].ApeNom, v[i].rank);
 	}
 
 	fclose(p);

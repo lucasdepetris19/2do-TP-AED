@@ -9,7 +9,7 @@ struct turnos
 };
 
 
-void listurn(int matridein, char &aux[60])
+void listurn(int matridein, char aux[60])
 {
     FILE *p = fopen("Turnos.dat", "rb+");
     turnos datos;
@@ -69,7 +69,7 @@ void listurn(int matridein, char &aux[60])
                     fseek(p, -sizeof(turnos), SEEK_CUR);
                     fwrite(&datos, sizeof(turnos), 1, p);
                     printf("Atencion confirmada!\n\n");
-                    aux=datos.masc.ApeNom;
+                    strcpy(aux,datos.masc.ApeNom);
                 }
 
                 band = true;
