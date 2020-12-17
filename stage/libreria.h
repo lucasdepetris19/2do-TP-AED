@@ -219,7 +219,9 @@ int verifdni(turnos &turn)
 		{
 			turn.masc = masc;
 			fclose(fp);
+			printf("antes del return");
 			return 1;
+			printf("despues del return");
 		}
 		fread(&masc, sizeof(masc), 1, fp);
 	};
@@ -656,9 +658,9 @@ void registurn()
 		printf("\tRegistro de Turnos");
 		printf("\n\t-----------------------------\n");
 
-		b = 0;
 		do
 		{
+			b = 0;
 			printf("Matricula de Veterinario: ");
 			scanf("%06d", &turno.matri);
 
@@ -671,9 +673,10 @@ void registurn()
 
 		} while (b == 1 || buscamatri(turno.matri) == 0);
 
-		b = 0;
+		
 		do
 		{
+			b = 0;
 			printf("\nDNI del Dueño (8 dígitos): ");
 			scanf("%08d", &turno.DNI_dueno);
 			// printf("Dni ingresado: %d",turno.DNI_dueno);
@@ -858,6 +861,7 @@ void listurn(int matridein, turnos aux, bool &band1)
 		{
 			if (datos.borrado == false && matridein == datos.matri)
 			{
+				printf("Aquie esta el valor de datos de la matricula: %d",datos.matri);
 				printf("\n------------------------------------------------\n");
 				printf("MASCOTA %d\n", i + 1);
 				printf("Apellido y Nombre de la mascota: %s", datos.masc.ApeNom);

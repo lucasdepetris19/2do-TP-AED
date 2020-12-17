@@ -1,4 +1,4 @@
-void evolucion(aux)
+void evolucion(char aux[60])
 {	
   	FILE *p,*s;
 	p = fopen("Turnos.dat", "rb+");
@@ -6,7 +6,7 @@ void evolucion(aux)
 	turnos datos;
 	veterinario dat;
 		
-	bool x=false;
+	bool x=false,band=false;
 
 	
 	fread(datos,sizeof(turnos),1,p);
@@ -21,9 +21,10 @@ void evolucion(aux)
 	    	{
 	    		if(datos.matri==dat.matri)
 	    		{
-	    			printf("\n\nMatricula del veterinario %s",datos.matri); 
+	    			
 	    			printf("\nApellido y nombre del veterinario %s",dat.ApeNom);
 					x=true;
+					
 	    		}
 	    		
 	    		
