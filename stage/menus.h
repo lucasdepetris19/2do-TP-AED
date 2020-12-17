@@ -47,7 +47,7 @@ int menuVet(bool login)
     printf("\tSeleccione una Opción: ");
     scanf("%d", &opc);
 
-    if (login == false && opc > 1 && opc < 4)
+    if (login == false && opc > 1 && opc < 5)
     {
         printf("\n\n\t\tSe requiere iniciar sesión para acceder a esta opción");
         printf("\n\t\tSera redirigido al area de inicio de sesión");

@@ -842,7 +842,7 @@ void loginvet(veterinario &vet, bool &login)
 }
 
 //Vet - Opc 2 - Listar Turnos y atender
-void listurn(int matridein, turnos aux, bool &band1)
+void listurn(int matridein, turnos &aux, bool &band1)
 {
 	FILE *p = fopen("Turnos.dat", "r+b");
 	turnos datos;
@@ -899,10 +899,7 @@ void listurn(int matridein, turnos aux, bool &band1)
 					fseek(p, -sizeof(turnos), SEEK_CUR);
 					fwrite(&datos, sizeof(turnos), 1, p);
 					printf("¡Atención confirmada!\n\n");
-					strcpy(aux.masc.ApeNom, datos.masc.ApeNom);
-					aux.fec.dd=datos.fec.dd;
-					aux.fec.mm=datos.fec.mm;
-					aux.fec.aa=datos.fec.aa;
+					aux=datos;
 					band1 = true;
 				}
 				band = true;
@@ -935,13 +932,16 @@ void evolucion(turnos aux)
 	{
 		if (datos.borrado == true && strcmp(aux.masc.ApeNom, datos.masc.ApeNom) && aux.fec.dd==datos.fec.dd && aux.fec.mm==datos.fec.mm && aux.fec.aa==datos.fec.aa);
 		{
+			printf("\nFEC 1: %d/%d/%d\n", aux.fec.dd, aux.fec.mm, aux.fec.aa);
 			fread(&dat, sizeof(veterinario), 1, s);
 			while (!feof(s) && x == false)
 			{
-				if (datos.matri == dat.matri)
+				printf("\nFEC2: %d/%d/%d\n", datos.fec.dd, datos.fec.mm, datos.fec.aa);
+				if (aux.matri == dat.matri)
 				{
 					printf("\nVeterinario: %s", dat.ApeNom);
 					x = true;
+					//	printf("\nFECHA DEL TURNO: %d/%d/%d\n", datos.fec.dd, datos.fec.mm, datos.fec.aa);
 				}
 
 				fread(&dat, sizeof(veterinario), 1, s);

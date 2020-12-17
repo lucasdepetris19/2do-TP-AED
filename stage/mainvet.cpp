@@ -72,6 +72,11 @@ int main()
             printf("\n\n\n\n\n\n\n");
             // getch();
             break;
+        case 5:
+        	printf("\nFECHA DEL TURNO: %d/%d/%d\n", aux.fec.dd, aux.fec.mm, aux.fec.aa);
+        	printf("matricula %d",aux.matri);
+        	system("pause");
+        	break;
         default:
             system("CLS");
             printf("Ha ingresado una opcion no valida");
