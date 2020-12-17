@@ -539,54 +539,61 @@ void loginuser(usuario &user, bool &login)
 	char username[10];
 	char contra[10];
 
-	_flushall();
-	printf("\nIngrese el nombre de usuario: ");
-	gets(username);
-
-	_flushall();
-	printf("Ingrese la contraseña: ");
-	gets(contra);
-
-	fread(&aux, sizeof(usuario), 1, f);
-
-	while (!feof(f) && b == 0)
+	if(f==NULL)
 	{
-		if (strcmp(username, aux.user) == 0)
-		{
-			userenc = 1;
-			if (strcmp(contra, aux.contra) == 0)
-			{
-				user = aux;
-				login = true;
-				b = 1;
-			}
-		}
-		fread(&aux, sizeof(usuario), 1, f);
-	}
-
-	if (userenc)
-	{
-		printf("\nUsuario encontrado");
-		if (b)
-		{
-			printf("\nContraseña encontrada");
-		}
-		else
-		{
-			printf("\nContraseña incorrecta.\nVuelva a intentarlo");
-		}
+		printf("No hay usuarios registrados.");
 	}
 	else
 	{
-		printf("\nNo se encontro un Asistente con el nombre de usuario '%d'.\nVuelva a Intentarlo\n", username);
-	}
+		_flushall();
+		printf("\nIngrese el nombre de usuario: ");
+		gets(username);
 
-	if (userenc && b)
-	{
-		login = true;
-		printf("\n --- Logueo exitoso --- \n");
-	}
+		_flushall();
+		printf("Ingrese la contraseña: ");
+		gets(contra);
 
+		fread(&aux, sizeof(usuario), 1, f);
+
+		while (!feof(f) && b == 0)
+		{
+			if (strcmp(username, aux.user) == 0)
+			{
+				userenc = 1;
+				if (strcmp(contra, aux.contra) == 0)
+				{
+					user = aux;
+					login = true;
+					b = 1;
+				}
+			}
+			fread(&aux, sizeof(usuario), 1, f);
+		}
+
+		if (userenc)
+		{
+			printf("\nUsuario encontrado");
+			if (b)
+			{
+				printf("\nContraseña encontrada");
+			}
+			else
+			{
+				printf("\nContraseña incorrecta.\nVuelva a intentarlo");
+			}
+		}
+		else
+		{
+			printf("\nNo se encontro un Asistente con el nombre de usuario '%d'.\nVuelva a Intentarlo\n", username);
+		}
+
+		if (userenc && b)
+		{
+			login = true;
+			printf("\n --- Logueo exitoso --- \n");
+		}
+
+	}
 	fclose(f);
 	system("pause");
 }
@@ -792,50 +799,57 @@ void loginvet(veterinario &vet, bool &login)
 	bool bus = false, contra = false;
 	char aux2[33];
 
-	printf("\n\t\tIngrese el número de matricula: ");
-	scanf("%d", &busqueda);
-
-	_flushall();
-	printf("\t\tIngrese la contraseña: ");
-	gets(aux2);
-
-	fread(&datos, sizeof(veterinario), 1, p);
-
-	while (!feof(p) && contra == false)
+	if(p==NULL)
 	{
-		if (busqueda == datos.matri)
-		{
-			bus = true;
-			if (strcmp(aux2, datos.contravet) == 0)
-			{
-				vet = datos;
-				contra = true;
-			}
-		}
-		fread(&datos, sizeof(veterinario), 1, p);
-	}
-	if (bus)
-	{
-		printf("\n\t\tMatricula encontrada\n");
-		if (contra)
-		{
-			printf("\t\tContraseña encontrada");
-		}
-		else
-		{
-			printf("\t\tContraseñaa incorrecta.\n Por favor vuelva a ingresar la contrasenia");
-		}
-
+		printf("No hay veterinarios registrados.");
 	}
 	else
 	{
-		printf("\t\tNo se encontro un Veterinario con la Matricula '%d'. Vuelva a Intentarlo\n", busqueda);
-	}
+		printf("\n\t\tIngrese el número de matricula: ");
+		scanf("%d", &busqueda);
 
-	if (bus && contra)
-	{
-		login = true;
-		printf("\n Logueo exitoso \n");
+		_flushall();
+		printf("\t\tIngrese la contraseña: ");
+		gets(aux2);
+
+		fread(&datos, sizeof(veterinario), 1, p);
+
+		while (!feof(p) && contra == false)
+		{
+			if (busqueda == datos.matri)
+			{
+				bus = true;
+				if (strcmp(aux2, datos.contravet) == 0)
+				{
+					vet = datos;
+					contra = true;
+				}
+			}
+			fread(&datos, sizeof(veterinario), 1, p);
+		}
+		if (bus)
+		{
+			printf("\n\t\tMatricula encontrada\n");
+			if (contra)
+			{
+				printf("\t\tContraseña encontrada");
+			}
+			else
+			{
+				printf("\t\tContraseñaa incorrecta.\n Por favor vuelva a ingresar la contrasenia");
+			}
+
+		}
+		else
+		{
+			printf("\t\tNo se encontro un Veterinario con la Matricula '%d'. Vuelva a Intentarlo\n", busqueda);
+		}
+
+		if (bus && contra)
+		{
+			login = true;
+			printf("\n Logueo exitoso \n");
+		}
 	}
 	system("pause");
 	fclose(p);
@@ -932,21 +946,21 @@ void evolucion(turnos aux)
 	{
 		if (datos.borrado == true && strcmp(aux.masc.ApeNom, datos.masc.ApeNom) && aux.fec.dd==datos.fec.dd && aux.fec.mm==datos.fec.mm && aux.fec.aa==datos.fec.aa);
 		{
-			printf("\nFEC 1: %d/%d/%d\n", aux.fec.dd, aux.fec.mm, aux.fec.aa);
+			
 			fread(&dat, sizeof(veterinario), 1, s);
 			while (!feof(s) && x == false)
 			{
-				printf("\nFEC2: %d/%d/%d\n", datos.fec.dd, datos.fec.mm, datos.fec.aa);
+
 				if (aux.matri == dat.matri)
 				{
-					printf("\nVeterinario: %s", dat.ApeNom);
+					printf("\nVeterinario: %s", .ApeNom);
 					x = true;
-					//	printf("\nFECHA DEL TURNO: %d/%d/%d\n", datos.fec.dd, datos.fec.mm, datos.fec.aa);
+
 				}
 
 				fread(&dat, sizeof(veterinario), 1, s);
 			}
-			printf("\nFECHA DEL TURNO: %d/%d/%d\n", datos.fec.dd, datos.fec.mm, datos.fec.aa);
+			printf("\nFECHA DEL TURNO: %d/%d/%d\n", aux.fec.dd, aux.fec.mm, aux.fec.aa);
 
 			_flushall();
 			printf("La evolucion del paciente: ");
