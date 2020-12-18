@@ -43,27 +43,26 @@ int main()
             getch();
             break;
         case 2:
-            if (band == false)
+            // if (band == false)
             {
                 listurn(vet.matri, aux, band);
             }
-            else
+            // else
             {
                 printf("\nRegistre la evolución de la ultima mascota atendida para continuar.");
             }
             getch();
             break;
         case 3:
-            if (band == true)
+            // if (band == true)
             {
                 band = false;
                 evolucion(aux);
             }
-            else
+            // else
             {
                 printf("\nSe requiere llamar a una mascota para acceder a esta opción.");
             }
-
             getch();
             break;
         case 4:
@@ -73,8 +72,9 @@ int main()
             // getch();
             break;
         case 5:
-        	printf("\nFECHA DEL TURNO: %d/%d/%d\n", aux.fec.dd, aux.fec.mm, aux.fec.aa);
-        	printf("matricula %d",aux.matri);
+            printf("\nModo Desarrollador\n-------------\n");
+        	printf("\nFecha del Turno: %d/%d/%d\n", aux.fec.dd, aux.fec.mm, aux.fec.aa);
+        	printf("Matricula %d",aux.matri);
         	system("pause");
         	break;
         default:

@@ -18,7 +18,6 @@ int main()
     setlocale(LC_ALL, "");
     system("color 3F");
     int opcion;
-
     do
     {
         opcion = menuAdmin();

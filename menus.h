@@ -1,9 +1,26 @@
 #include <unistd.h>
 
 int time = 50000;
+int time1 = 500000;
+
+void logo()
+{
+    FILE *p;
+    p = fopen("logo.txt", "r");
+    char linea[100];
+    while (!feof(p))
+    {
+        fgets(linea, 100, p);
+        printf("\t%s", linea);
+    }
+    fclose(p);
+}
 
 int menuVet(bool login)
 {
+    system("CLS");
+    logo();
+    usleep(time1);
     int opc = 0;
     system("CLS");
     printf("\n\n\n\n\t\t*****************************************************\n");
@@ -59,6 +76,9 @@ int menuVet(bool login)
 
 int menuAsist(bool login)
 {
+    system("CLS");
+    logo();
+    usleep(time1);
     int opc = 0;
     system("CLS");
     usleep(time);
@@ -123,6 +143,9 @@ int menuAsist(bool login)
 
 int menuAdmin()
 {
+    system("CLS");
+    logo();
+    usleep(time1);
     int opc = 0;
     system("CLS");
     usleep(time);
