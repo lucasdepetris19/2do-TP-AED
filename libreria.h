@@ -546,6 +546,8 @@ void ranking()
 			printf("\nPUESTO N° %d para %s ", i + 1, v[i].ApeNom);
 		}
 
+		printf("\nRecibira el bono: '%s'.", v[0].ApeNom);
+
 		fclose(p);
 		fclose(s);
 	}
