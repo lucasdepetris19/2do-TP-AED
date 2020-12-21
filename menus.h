@@ -12,16 +12,20 @@ void logo()
     {
         fgets(linea, 100, p);
         printf("\t%s", linea);
+        usleep(time);
     }
     fclose(p);
 }
 
-int menuVet(bool login)
+int menuVet(bool login, int inicio)
 {
-    system("CLS");
-    logo();
-    usleep(time1);
     int opc = 0;
+    system("CLS");
+    if (inicio == 0)
+    {
+        logo();
+        usleep(time1);
+    }
     system("CLS");
     printf("\n\n\n\n\t\t*****************************************************\n");
     usleep(time);
@@ -67,19 +71,22 @@ int menuVet(bool login)
     if (login == false && opc > 1 && opc < 5)
     {
         printf("\n\n\t\tSe requiere iniciar sesión para acceder a esta opción");
-        printf("\n\t\tSera redirigido al area de inicio de sesión");
+        printf("\n\t\tSera redirigido al área de inicio de sesión");
         opc = 1;
     }
 
     return opc; //retorna el número de opción seleccionada.
 }
 
-int menuAsist(bool login)
+int menuAsist(bool login, int inicio)
 {
-    system("CLS");
-    logo();
-    usleep(time1);
     int opc = 0;
+    system("CLS");
+    if (inicio == 0)
+    {
+        logo();
+        usleep(time1);
+    }
     system("CLS");
     usleep(time);
     printf("\n\n\n\n\t\t*******************************************************\n");
@@ -134,24 +141,27 @@ int menuAsist(bool login)
     if (login == false && opc > 1 && opc < 5)
     {
         printf("\n\n\t\tSe requiere iniciar sesión para acceder a esta opción");
-        printf("\n\t\tSera redirigido al area de inicio de sesión");
+        printf("\n\t\tSera redirigido al área de inicio de sesión");
         opc = 1;
     }
 
     return opc; //retorna el número de opción seleccionada.
 }
 
-int menuAdmin()
+int menuAdmin(int inicio)
 {
-    system("CLS");
-    logo();
-    usleep(time1);
     int opc = 0;
+    system("CLS");
+    if (inicio == 0)
+    {
+        logo();
+        usleep(time1);
+    }
     system("CLS");
     usleep(time);
     printf("\n\n\n\n\t\t*******************************************************\n");
     usleep(time);
-    printf("\t\t**            A D M I N I S T R A C I O N            **\n");
+    printf("\t\t**            A D M I N I S T R A C I Ó N            **\n");
     usleep(time);
     printf("\t\t*******************************************************\n");
     usleep(time);

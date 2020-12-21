@@ -18,18 +18,19 @@ int main()
 {
     setlocale(LC_ALL, "");
     system("color 1F");
-    int opcion;
+    int inicio = 0, opcion;
     usuario user;
-    bool login=false;
+    bool login = false;
 
     do
     {
-        opcion = menuAsist(login);
+        opcion = menuAsist(login,inicio);
+        inicio++;
         switch (opcion)
         {
         case 1:
-            login=false;
-            loginuser(user,login);
+            login = false;
+            loginuser(user, login);
             getch();
             break;
         case 2:
@@ -61,5 +62,5 @@ int main()
     } while (opcion != 5); //Fin del Ciclo Do
 
     // printf("\n");
-	getch();
+    getch();
 }

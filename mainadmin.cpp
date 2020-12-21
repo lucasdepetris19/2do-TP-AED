@@ -13,14 +13,17 @@
 #include "libreria.h"
 #include "menus.h"
 
+
 int main()
 {
     setlocale(LC_ALL, "");
     system("color 3F");
-    int opcion;
+    int inicio = 0, opcion;
+    
     do
     {
-        opcion = menuAdmin();
+        opcion = menuAdmin(inicio);
+        inicio++;
         switch (opcion)
         {
         case 1:
