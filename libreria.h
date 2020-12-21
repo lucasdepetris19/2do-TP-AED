@@ -472,7 +472,7 @@ void ranking()
 {
 	FILE *p, *s;
 	p = fopen("Turnos.dat", "rb");
-	s = fopen("Veterinarios.dat", "rb+");
+	s = fopen("Veterinarios.dat", "r+b");
 	turnos datos;
 	veterinario dat, v[50], aux;
 	bool x = false;
@@ -484,6 +484,7 @@ void ranking()
 	}
 	else
 	{
+			
 		fread(&datos, sizeof(turnos), 1, p);
 
 		while (!feof(p))
@@ -514,6 +515,7 @@ void ranking()
 		fread(&dat, sizeof(veterinario), 1, s);
 		while (!feof(s))
 		{
+			v[n].rank = 0;
 			strcpy(v[n].ApeNom, dat.ApeNom);
 			v[n].rank = dat.rank;
 			fread(&dat, sizeof(veterinario), 1, s);
@@ -538,10 +540,10 @@ void ranking()
 			}
 		} while (b == 1);
 
-		printf("RANKING DE VETERINARIOS\n------------------");
+		printf("\nRANKING DE VETERINARIOS\n------------------");
 		for (int i = 0; i < n; i++)
 		{
-			printf("\nPUESTO N° %d para %s con: %d", i + 1, v[i].ApeNom, v[i].rank);
+			printf("\nPUESTO N° %d para %s ", i + 1, v[i].ApeNom);
 		}
 
 		fclose(p);
