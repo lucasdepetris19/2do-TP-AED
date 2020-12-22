@@ -20,7 +20,7 @@ struct veterinario
 	int matri;
 	int DNI_vet;
 	char telef[25];
-	int rank;
+	int rank=0;
 };
 struct mascota
 {
@@ -429,11 +429,11 @@ void listatencionvet()
 
 				if (aux1 == datos.matri)
 				{
-					b3 = 1;
+					b2 = 1;
 
 					if (aux2 == datos.fec.mm && aux3 == datos.fec.aa)
 					{
-						b2 = 1;
+						b3 = 1;
 						printf("\n------------------------------------------------\n");
 						printf("FECHA DEL TURNO: %d/%d/%d\n", datos.fec.dd, datos.fec.mm, datos.fec.aa);
 						printf("Apellido y Nombre de la mascota: %s", datos.masc.ApeNom);
@@ -476,7 +476,7 @@ void ranking()
 	turnos datos;
 	veterinario dat, v[50], aux;
 	bool x = false;
-	int n = 0, b;
+	int n = 0, b,c=0;
 
 	if (p == NULL)
 	{
@@ -484,26 +484,30 @@ void ranking()
 	}
 	else
 	{
-			
+
+		
+		fread(&dat, sizeof(veterinario), 1, s);
+		while (!feof(s))
+		{
+			v[n]=dat;
+			v[n].rank = 0;
+			fread(&dat, sizeof(veterinario), 1, s);
+			n++;
+		}
+		
+		
 		fread(&datos, sizeof(turnos), 1, p);
 
 		while (!feof(p))
 		{
 			if (datos.borrado == true)
 			{
-				rewind(s);
-				x = false;
-				fread(&dat, sizeof(veterinario), 1, s);
-				while (!feof(s) && x == false)
+				for(int i=0;i<n;i++)
 				{
-					if (datos.matri == dat.matri)
+					if(v[i].matri==datos.matri)
 					{
-						dat.rank++;
-						fseek(s, -sizeof(veterinario), SEEK_CUR);
-						fwrite(&dat, sizeof(veterinario), 1, s);
-						x = true;
+						v[i].rank++;
 					}
-					fread(&dat, sizeof(veterinario), 1, s);
 				}
 			}
 
@@ -512,18 +516,6 @@ void ranking()
 
 		rewind(s);
 
-		fread(&dat, sizeof(veterinario), 1, s);
-		while (!feof(s))
-		{
-			v[n].rank = 0;
-			strcpy(v[n].ApeNom, dat.ApeNom);
-			v[n].rank = dat.rank;
-			fread(&dat, sizeof(veterinario), 1, s);
-			if (!feof(s))
-			{
-				n++;
-			}
-		}
 
 		do
 		{
@@ -543,7 +535,7 @@ void ranking()
 		printf("\nRANKING DE VETERINARIOS\n------------------");
 		for (int i = 0; i < n; i++)
 		{
-			printf("\nPUESTO N° %d para %s ", i + 1, v[i].ApeNom);
+			printf("\nPUESTO N° %d para %s con: %d atenciones", i + 1, v[i].ApeNom,v[i].rank);
 		}
 
 		printf("\nRecibira el bono: '%s'.", v[0].ApeNom);
@@ -609,7 +601,7 @@ void loginuser(usuario &user, bool &login)
 		}
 		else
 		{
-			printf("\nNo se encontro un Asistente con el nombre de usuario '%d'.\nVuelva a Intentarlo\n", username);
+			printf("\nNo se encontro un Asistente con el nombre de usuario '%s'.\nVuelva a Intentarlo\n", username);
 		}
 
 		if (userenc && b)
@@ -1056,16 +1048,19 @@ void evolucion(turnos aux)
 
 			printf("La evolución del paciente: ");
 			scanf(" %[^\n]", datos.DetA);
-
 			fseek(p, -sizeof(turnos), SEEK_CUR);
 			fwrite(&datos, sizeof(turnos), 1, p);
 
+
 			band = true;
 		}
-		fread(&datos, sizeof(turnos), 1, p);
+		else
+		{
+			fread(&datos, sizeof(turnos), 1, p);
+		}
 	}
 
-	_flushall();
 	fclose(s);
 	fclose(p);
+	_flushall();
 }
