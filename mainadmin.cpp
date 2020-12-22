@@ -13,13 +13,12 @@
 #include "libreria.h"
 #include "menus.h"
 
-
 int main()
 {
     setlocale(LC_ALL, "");
     system("color 3F");
-    int inicio = 0, opcion;
-    
+    int inicio = 0, opcion, ea = 0;
+    //ea = easter egg
     do
     {
         opcion = menuAdmin(inicio);
@@ -48,14 +47,18 @@ int main()
             printf("\n\n\n\n\n\n\n");
             // getch();
             break;
+        case 2077:
+            easteregg(ea);
+            ea++;
+            break;
         default:
             system("CLS");
             printf("Ha ingresado una opcion no valida");
             printf("\n");
             system("pause");
             break;
-        } //Fin del switch().
-
+        }
+        //Fin del switch().
     } while (opcion != 5); //Fin del Ciclo Do
 
     getch();

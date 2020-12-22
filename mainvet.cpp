@@ -73,10 +73,8 @@ int main()
             // getch();
             break;
         case 5:
-            printf("\nModo Desarrollador\n-------------\n");
-            printf("\nFecha del Turno: %d/%d/%d\n", aux.fec.dd, aux.fec.mm, aux.fec.aa);
-            printf("Matricula %d", aux.matri);
-            system("pause");
+            mododev(aux);
+            getch();
             break;
         default:
             system("CLS");

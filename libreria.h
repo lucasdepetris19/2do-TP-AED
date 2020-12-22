@@ -20,7 +20,7 @@ struct veterinario
 	int matri;
 	int DNI_vet;
 	char telef[25];
-	int rank=0;
+	int rank = 0;
 };
 struct mascota
 {
@@ -67,7 +67,7 @@ bool verifpass(char pass[33])
 			if (pass[i] == ' ' || pass[i] == ',' || pass[i] == '!' || pass[i] == '?' || pass[i] == '¿' || pass[i] == '.')
 			{
 				printf("\nContraseña Incorrecta");
-				printf("\nRazon: No se permiten caracteres especiales");
+				printf("\nRazón: No se permiten caracteres especiales");
 				printf("\nVuelva a intentarlo");
 				// verif = false;
 				return verif;
@@ -89,7 +89,7 @@ bool verifpass(char pass[33])
 			if (aux[i] == (aux[i + 1] - 1) && isalpha(aux[i]) && isalpha(aux[i + 1]))
 			{
 				printf("\nContraseña Incorrecta");
-				printf("\nRazon: No se permite el ingreso de caracteres consecutivos alfanúmericos");
+				printf("\nRazón: No se permite el ingreso de caracteres consecutivos alfanúmericos");
 				printf("\nVuelva a intentarlo");
 
 				// printf("forma ascendente");
@@ -100,7 +100,7 @@ bool verifpass(char pass[33])
 	else
 	{
 		printf("\nContraseña Incorrecta");
-		printf("\nRazon: Ingrese una contraseña de entre 6 y 32 caracteres");
+		printf("\nRazón: Ingrese una contraseña de entre 6 y 32 caracteres");
 		printf("\nVuelva a intentarlo");
 		return verif;
 	}
@@ -114,7 +114,7 @@ bool verifpass(char pass[33])
 	else
 	{
 		printf("\nContraseña Incorrecta");
-		printf("\nRazon: Ingrese al menos una mayuscula, una minuscula y un número");
+		printf("\nRazón: Ingrese al menos una mayuscula, una minuscula y un número");
 		printf("\nVuelva a intentarlo");
 		return verif;
 	}
@@ -437,18 +437,16 @@ void listatencionvet()
 						printf("\n------------------------------------------------\n");
 						printf("FECHA DEL TURNO: %d/%d/%d\n", datos.fec.dd, datos.fec.mm, datos.fec.aa);
 						printf("Apellido y Nombre de la mascota: %s", datos.masc.ApeNom);
-						printf("DNI del dueño: %d", datos.masc.DNI);
-						printf("Localidad de la mascota: %s", datos.masc.Loc);
-						printf("\nEdad de la mascota: %d\n", (2020 - datos.masc.fec.aa));
-						printf("Peso de la mascota: %f", datos.masc.peso);
-						i++;
+						printf("\tDNI del dueño: %d", datos.masc.DNI);
+						printf("\nLocalidad: %s", datos.masc.Loc);
+						printf("\nEdad: %d años", (2020 - datos.masc.fec.aa));
+						printf("\tPeso: %.2fkg", datos.masc.peso);
+						printf("\n------------------------------------------------\n");
 					}
 				}
 			}
 			fread(&datos, sizeof(turnos), 1, p);
 		}
-
-		printf("\n------------------------------------------------\n");
 
 		if (b1 == 0)
 		{
@@ -476,7 +474,7 @@ void ranking()
 	turnos datos;
 	veterinario dat, v[50], aux;
 	bool x = false;
-	int n = 0, b,c=0;
+	int n = 0, b, c = 0;
 
 	if (p == NULL)
 	{
@@ -485,26 +483,24 @@ void ranking()
 	else
 	{
 
-		
 		fread(&dat, sizeof(veterinario), 1, s);
 		while (!feof(s))
 		{
-			v[n]=dat;
+			v[n] = dat;
 			v[n].rank = 0;
 			fread(&dat, sizeof(veterinario), 1, s);
 			n++;
 		}
-		
-		
+
 		fread(&datos, sizeof(turnos), 1, p);
 
 		while (!feof(p))
 		{
 			if (datos.borrado == true)
 			{
-				for(int i=0;i<n;i++)
+				for (int i = 0; i < n; i++)
 				{
-					if(v[i].matri==datos.matri)
+					if (v[i].matri == datos.matri)
 					{
 						v[i].rank++;
 					}
@@ -515,7 +511,6 @@ void ranking()
 		}
 
 		rewind(s);
-
 
 		do
 		{
@@ -535,7 +530,7 @@ void ranking()
 		printf("\nRANKING DE VETERINARIOS\n------------------");
 		for (int i = 0; i < n; i++)
 		{
-			printf("\nPUESTO N° %d para %s con: %d atenciones", i + 1, v[i].ApeNom,v[i].rank);
+			printf("\nPUESTO N° %d para %s con: %d atenciones", i + 1, v[i].ApeNom, v[i].rank);
 		}
 
 		printf("\nRecibira el bono: '%s'.", v[0].ApeNom);
@@ -895,7 +890,7 @@ void loginvet(veterinario &vet, bool &login)
 			}
 			else
 			{
-				printf("\t\tContraseñaa incorrecta.\n Por favor vuelva a ingresar la contrasenia");
+				printf("\t\tContraseñaa incorrecta.\n Por favor vuelva a ingresar la contraseña");
 			}
 		}
 		else
@@ -922,26 +917,6 @@ void listurn(int matridein, turnos &aux, bool &band1)
 	turnos datos;
 	int i = 0, op;
 	bool band = false;
-
-	fread(&datos, sizeof(turnos), 1, p);
-	while (!feof(p))
-	{
-		// printf("Aquie esta el valor de datos de la matricula: %d", datos.matri);
-		printf("\n------------------------------------------------\n");
-		printf("MASCOTA %d\n", i + 1);
-		printf("Apellido y Nombre de la mascota: %s", datos.masc.ApeNom);
-		printf("\nFecha %d/%d/%d", datos.fec.dd, datos.fec.mm, datos.fec.aa);
-		printf("\tDNI del dueño: %d", datos.masc.DNI);
-		printf("\nLocalidad de la mascota: %s", datos.masc.Loc);
-		printf("\nEdad de la mascota: %d años", (2020 - datos.masc.fec.aa));
-		printf("\tPeso de la mascota: %.2fkg", datos.masc.peso);
-		printf("\tEstado: %d", datos.borrado);
-		i++;
-
-		fread(&datos, sizeof(turnos), 1, p);
-	}
-
-	printf("\n-------------------\n");
 
 	rewind(p);
 	if (p == NULL)
@@ -1040,18 +1015,14 @@ void evolucion(turnos aux)
 					printf("\nVeterinario: %s", dat.ApeNom);
 					x = true;
 				}
-
 				fread(&dat, sizeof(veterinario), 1, s);
 			}
-
 			printf("\nFECHA DEL TURNO: %d/%d/%d\n", datos.fec.dd, datos.fec.mm, datos.fec.aa);
 
 			printf("La evolución del paciente: ");
 			scanf(" %[^\n]", datos.DetA);
 			fseek(p, -sizeof(turnos), SEEK_CUR);
 			fwrite(&datos, sizeof(turnos), 1, p);
-
-
 			band = true;
 		}
 		else
@@ -1063,4 +1034,88 @@ void evolucion(turnos aux)
 	fclose(s);
 	fclose(p);
 	_flushall();
+}
+
+void mododev(turnos aux)
+{
+	FILE *p, *s;
+	p = fopen("Turnos.dat", "rb+");
+	s = fopen("Veterinarios.dat", "rb");
+	int i = 1;
+	int des;
+	turnos datos;
+	veterinario dat;
+	_flushall();
+	printf("\nModo Desarrollador\n-------------------\n");
+	printf("Para ingresar debe confirmar que sabe lo que esta haciendo.\n");
+	printf("¿En qué lenguaje esta escrito este programa?\nSu respuesta: ");
+	scanf("%c", &des);
+	if (des == 'c' || des == 'C')
+	{
+		printf("Acceso concedido.\n");
+		getch();
+		system("CLS");
+		printf("Se mostraran los datos de la variable Aux\n");
+		printf("\nFecha del Turno: %d/%d/%d\n", aux.fec.dd, aux.fec.mm, aux.fec.aa);
+		printf("Matricula %d", aux.matri);
+		getch();
+
+		printf("Se listaran todos los turnos de los veterinarios\n");
+
+		fread(&datos, sizeof(turnos), 1, p);
+		while (!feof(p))
+		{
+			// printf("Aquie esta el valor de datos de la matricula: %d", datos.matri);
+			printf("\n------------------------------------------------\n");
+			printf("MASCOTA %d\n", i);
+			printf("Apellido y Nombre de la mascota: %s", datos.masc.ApeNom);
+			printf("\nFecha %d/%d/%d", datos.fec.dd, datos.fec.mm, datos.fec.aa);
+			printf("\tDNI del dueño: %d", datos.masc.DNI);
+			printf("\nLocalidad de la mascota: %s", datos.masc.Loc);
+			printf("\nEdad de la mascota: %d años", (2020 - datos.masc.fec.aa));
+			printf("\tPeso de la mascota: %.2fkg", datos.masc.peso);
+			printf("\tEstado: %d", datos.borrado);
+			i++;
+
+			fread(&datos, sizeof(turnos), 1, p);
+		}
+		printf("\n-----------------------------------\n");
+	}
+	else
+	{
+		printf("Acceso denegado.\n");
+		printf("No vuelva a ingresar\n");
+	}
+}
+
+void easteregg(int ea)
+{
+	system("CLS");
+	printf("No sigas haciendo eso porfa\n");
+	getch();
+
+	switch (ea)
+	{
+	case 1:
+		printf("\nPara");
+		break;
+	case 2:
+		printf("\nEn serio deja de intentarlo");
+		break;
+	case 3:
+		printf("\nDeja de hacer eso");
+		getch();
+		printf("\nEstas muy aburrido verdad?");
+		break;
+	case 4:
+		printf("\nBueno esta bien...\n");
+		printf("\n¡Encontraste una sección secreta!\n");
+		printf("¡Presiona una tecla para jugar al nuevo CyberPunk 2077!\n\n");
+		getch();
+		printf("\nParece ser que no tenes el juego, proba en otro momento :/\n");
+		getch();
+		break;
+	}
+	printf("\n");
+	getch();
 }
